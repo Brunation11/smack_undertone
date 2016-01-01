@@ -1,4 +1,4 @@
-class QuestionController < ApplicationController
+class QuestionsController < ApplicationController
   skip_before_action :ensure_logged_in, only: :show
 
   def index
@@ -15,7 +15,7 @@ class QuestionController < ApplicationController
       redirect_to questions_path
     else
       render 'new'
-    end    
+    end
   end
 
   private
