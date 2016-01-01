@@ -27,7 +27,13 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-
+    comment = Comment.find(params[:id])
+    if valid_user(comment) && comment.destroy
+      redirect_to question_path(comment.commentable_id)
+    else
+      flash[:notice] = "There was a problem deleting the comment"
+      redirect_to root_path
+    end
   end
 
 
