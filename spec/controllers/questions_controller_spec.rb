@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe QuestionController, type: :controller do
+RSpec.describe QuestionsController, type: :controller do
 
   describe "GET #new" do
     it "returns http success" do
