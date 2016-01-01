@@ -13,5 +13,4 @@ class User < ActiveRecord::Base
   validates :password, confirmation: true
   validates_presence_of :password_confirmation
   validates :email, :format => { :with => /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
-
 end
