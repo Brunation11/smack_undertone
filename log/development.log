@@ -1,0 +1,616 @@
+  [1m[36m (18.1ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (2.1ms)[0m  CREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20151231213748)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20151231213748)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (4.5ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "username" character varying(255) NOT NULL, "email" character varying(255) NOT NULL, "password_digest" character varying(255) NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20151231213748"]]
+  [1m[36m (15.7ms)[0m  [1mCOMMIT[0m
+Migrating to CreateComments (20151231213818)
+  [1m[35m (15.4ms)[0m  BEGIN
+  [1m[36m (3.1ms)[0m  [1mCREATE TABLE "comments" ("id" serial primary key, "commentable_id" integer, "commentable_type" character varying(255), "commentor_id" integer NOT NULL, "content" character varying(255) NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.0ms)[0m  CREATE  INDEX  "index_comments_on_commentable_id_and_commentable_type" ON "comments"  ("commentable_id", "commentable_type")
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20151231213818"]]
+  [1m[35m (0.6ms)[0m  COMMIT
+Migrating to CreateQuestions (20151231213823)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (2.8ms)[0m  CREATE TABLE "questions" ("id" serial primary key, "author_id" integer NOT NULL, "title" character varying(255) NOT NULL, "content" character varying(255) NOT NULL, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20151231213823"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+Migrating to CreateVotes (20151231213828)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (1.9ms)[0m  CREATE TABLE "votes" ("id" serial primary key, "votable_id" integer, "votable_type" character varying(255), "user_id" integer NOT NULL, "value" integer NOT NULL, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (0.9ms)[0m  [1mCREATE  INDEX  "index_votes_on_votable_id_and_votable_type" ON "votes"  ("votable_id", "votable_type")[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20151231213828"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+Migrating to CreateAnswers (20151231213841)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (18.3ms)[0m  [1mCREATE TABLE "answers" ("id" serial primary key, "author_id" integer NOT NULL, "question_id" integer NOT NULL, "content" character varying(255) NOT NULL, "is_best" boolean DEFAULT 'f', "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20151231213841"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.4ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36mUser Load (0.7ms)[0m  [1mSELECT  "users".* FROM "users"   ORDER BY "users"."id" DESC LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.9ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."username" = 'steven' LIMIT 1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT  1 AS one FROM "users"  WHERE "users"."email" = 'steven@example.com' LIMIT 1
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "password_digest", "updated_at", "username") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2015-12-31 22:41:33.009195"], ["email", "steven@example.com"], ["password_digest", "$2a$10$nO18Sx0HUCDPFM.Yvyup/uNOGB..U69AGc3XFhji.vPA/8jmAkTT2"], ["updated_at", "2015-12-31 22:41:33.009195"], ["username", "steven"]]
+  [1m[35m (15.7ms)[0m  COMMIT
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users"   ORDER BY "users"."id" DESC LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "questions" ("author_id", "content", "created_at", "title", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["author_id", 1], ["content", "babdsdfadfafdafafdaf"], ["created_at", "2015-12-31 22:42:07.512117"], ["title", "a?"], ["updated_at", "2015-12-31 22:42:07.512117"]]
+  [1m[35m (14.6ms)[0m  COMMIT
+  [1m[36mQuestion Load (0.5ms)[0m  [1mSELECT  "questions".* FROM "questions"   ORDER BY "questions"."id" DESC LIMIT 1[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users"   ORDER BY "users"."id" DESC LIMIT 1
+  [1m[36mQuestion Load (0.5ms)[0m  [1mSELECT  "questions".* FROM "questions"   ORDER BY "questions"."id" DESC LIMIT 1[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users"   ORDER BY "users"."id" DESC LIMIT 1
+  [1m[36mQuestion Load (0.3ms)[0m  [1mSELECT  "questions".* FROM "questions"   ORDER BY "questions"."id" DESC LIMIT 1[0m
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users"   ORDER BY "users"."id" DESC LIMIT 1
+  [1m[36mQuestion Load (0.5ms)[0m  [1mSELECT  "questions".* FROM "questions"   ORDER BY "questions"."id" DESC LIMIT 1[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users"   ORDER BY "users"."id" DESC LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.7ms)[0m  SELECT  1 AS one FROM "users"  WHERE "users"."username" = 'steven' LIMIT 1
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'steven@example.com' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users"   ORDER BY "users"."id" DESC LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "questions" ("author_id", "content", "created_at", "title", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["author_id", 1], ["content", "babdsdfadfafdafafdaf"], ["created_at", "2015-12-31 22:45:17.359790"], ["title", "a?"], ["updated_at", "2015-12-31 22:45:17.359790"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36mQuestion Load (0.6ms)[0m  [1mSELECT  "questions".* FROM "questions"   ORDER BY "questions"."id" DESC LIMIT 1[0m
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users"   ORDER BY "users"."id" DESC LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36mQuestion Load (0.5ms)[0m  [1mSELECT  "questions".* FROM "questions"   ORDER BY "questions"."id" DESC LIMIT 1[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users"   ORDER BY "users"."id" DESC LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36mQuestion Load (0.5ms)[0m  [1mSELECT  "questions".* FROM "questions"   ORDER BY "questions"."id" DESC LIMIT 1[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users"   ORDER BY "users"."id" DESC LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36mQuestion Load (0.2ms)[0m  [1mSELECT  "questions".* FROM "questions"   ORDER BY "questions"."id" DESC LIMIT 1[0m
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users"   ORDER BY "users"."id" DESC LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mAnswer Exists (0.7ms)[0m  SELECT  1 AS one FROM "answers"  WHERE ("answers"."is_best" = 'f' AND "answers"."author_id" = 1) LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "answers" ("author_id", "content", "created_at", "question_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["author_id", 1], ["content", "abcdefghigdfaddsafasfads"], ["created_at", "2015-12-31 22:46:19.720462"], ["question_id", 2], ["updated_at", "2015-12-31 22:46:19.720462"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36mQuestion Load (0.5ms)[0m  [1mSELECT  "questions".* FROM "questions"   ORDER BY "questions"."id" DESC LIMIT 1[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users"   ORDER BY "users"."id" DESC LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mAnswer Exists (0.3ms)[0m  SELECT  1 AS one FROM "answers"  WHERE ("answers"."is_best" = 'f' AND "answers"."author_id" = 1) LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.7ms)[0m  SELECT  1 AS one FROM "users"  WHERE "users"."username" = 'steven' LIMIT 1
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'steven@example.com' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36mUser Load (0.6ms)[0m  [1mSELECT  "users".* FROM "users"   ORDER BY "users"."id" DESC LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "questions" ("author_id", "content", "created_at", "title", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["author_id", 1], ["content", "babdsdfadfafdafafdaf"], ["created_at", "2015-12-31 22:49:06.891135"], ["title", "a?"], ["updated_at", "2015-12-31 22:49:06.891135"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36mQuestion Load (0.5ms)[0m  [1mSELECT  "questions".* FROM "questions"   ORDER BY "questions"."id" DESC LIMIT 1[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users"   ORDER BY "users"."id" DESC LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "answers" ("author_id", "content", "created_at", "question_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["author_id", 1], ["content", "abcdefghigdfaddsafasfads"], ["created_at", "2015-12-31 22:49:16.453331"], ["question_id", 3], ["updated_at", "2015-12-31 22:49:16.453331"]]
+  [1m[36mSQL (0.6ms)[0m  [1mUPDATE "answers" SET "is_best" = 'f' WHERE "answers"."question_id" = 3 AND "answers"."is_best" = 't' AND ("answers"."id" != 2)[0m
+  [1m[35m (15.6ms)[0m  COMMIT
+  [1m[36mQuestion Load (0.5ms)[0m  [1mSELECT  "questions".* FROM "questions"   ORDER BY "questions"."id" DESC LIMIT 1[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users"   ORDER BY "users"."id" DESC LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "answers" ("author_id", "content", "created_at", "question_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["author_id", 1], ["content", "abcdefghigdfaddsafasfads"], ["created_at", "2015-12-31 22:49:29.950093"], ["question_id", 3], ["updated_at", "2015-12-31 22:49:29.950093"]]
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "answers" SET "is_best" = 'f' WHERE "answers"."question_id" = 3 AND "answers"."is_best" = 't' AND ("answers"."id" != 3)[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mAnswer Load (0.5ms)[0m  [1mSELECT  "answers".* FROM "answers"   ORDER BY "answers"."id" DESC LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mQuestion Load (0.3ms)[0m  [1mSELECT  "questions".* FROM "questions"  WHERE "questions"."id" = $1 LIMIT 1[0m  [["id", 3]]
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "answers" SET "is_best" = $1, "updated_at" = $2 WHERE "answers"."id" = 3[0m  [["is_best", "t"], ["updated_at", "2015-12-31 22:49:55.634560"]]
+  [1m[35mSQL (0.3ms)[0m  UPDATE "answers" SET "is_best" = 'f' WHERE "answers"."question_id" = 3 AND "answers"."is_best" = 't' AND ("answers"."id" != 3)
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mAnswer Load (0.3ms)[0m  SELECT  "answers".* FROM "answers"  WHERE "answers"."id" = $1 LIMIT 1  [["id", 2]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mQuestion Load (0.4ms)[0m  SELECT  "questions".* FROM "questions"  WHERE "questions"."id" = $1 LIMIT 1  [["id", 3]]
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mSQL (0.3ms)[0m  UPDATE "answers" SET "is_best" = $1, "updated_at" = $2 WHERE "answers"."id" = 2  [["is_best", "t"], ["updated_at", "2015-12-31 22:50:23.150130"]]
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "answers" SET "is_best" = 'f' WHERE "answers"."question_id" = 3 AND "answers"."is_best" = 't' AND ("answers"."id" != 2)[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mAnswer Load (0.6ms)[0m  [1mSELECT  "answers".* FROM "answers"   ORDER BY "answers"."id" DESC LIMIT 1[0m
+  [1m[35mAnswer Load (0.5ms)[0m  SELECT  "answers".* FROM "answers"  WHERE "answers"."id" = $1 LIMIT 1  [["id", 2]]
+  [1m[36mAnswer Load (0.4ms)[0m  [1mSELECT  "answers".* FROM "answers"  WHERE "answers"."id" = $1 LIMIT 1[0m  [["id", 3]]
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mQuestion Load (0.4ms)[0m  [1mSELECT  "questions".* FROM "questions"  WHERE "questions"."id" = $1 LIMIT 1[0m  [["id", 3]]
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "answers" SET "is_best" = $1, "updated_at" = $2 WHERE "answers"."id" = 3[0m  [["is_best", "t"], ["updated_at", "2015-12-31 22:51:27.188329"]]
+  [1m[35mSQL (0.3ms)[0m  UPDATE "answers" SET "is_best" = 'f' WHERE "answers"."question_id" = 3 AND "answers"."is_best" = 't' AND ("answers"."id" != 3)
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mAnswer Load (0.5ms)[0m  SELECT  "answers".* FROM "answers"  WHERE "answers"."id" = $1 LIMIT 1  [["id", 2]]
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"   ORDER BY "users"."id" DESC LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.7ms)[0m  SELECT  1 AS one FROM "users"  WHERE "users"."username" = 'steven' LIMIT 1
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'steven@example.com' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36mUser Load (0.6ms)[0m  [1mSELECT  "users".* FROM "users"   ORDER BY "users"."id" DESC LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "questions" ("author_id", "content", "created_at", "title", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["author_id", 1], ["content", "babdsdfadfafdafafdaf"], ["created_at", "2015-12-31 23:02:46.927543"], ["title", "a?"], ["updated_at", "2015-12-31 23:02:46.927543"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36mQuestion Load (0.5ms)[0m  [1mSELECT  "questions".* FROM "questions"   ORDER BY "questions"."id" DESC LIMIT 1[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users"   ORDER BY "users"."id" DESC LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "answers" ("author_id", "content", "created_at", "question_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["author_id", 1], ["content", "abcdefghigdfaddsafasfads"], ["created_at", "2015-12-31 23:02:54.745033"], ["question_id", 4], ["updated_at", "2015-12-31 23:02:54.745033"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users"   ORDER BY "users"."id" DESC LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mAnswer Load (0.4ms)[0m  SELECT  "answers".* FROM "answers"  WHERE "answers"."id" = $1 LIMIT 1  [["id", 4]]
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "comments" ("commentable_id", "commentable_type", "commentor_id", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["commentable_id", 4], ["commentable_type", "Answer"], ["commentor_id", 1], ["content", "fgcfgdfgcfgfxg"], ["created_at", "2015-12-31 23:03:00.707362"], ["updated_at", "2015-12-31 23:03:00.707362"]]
+  [1m[35m (15.6ms)[0m  COMMIT
+  [1m[36mComment Load (0.6ms)[0m  [1mSELECT "comments".* FROM "comments"[0m
+  [1m[35mAnswer Load (0.5ms)[0m  SELECT "answers".* FROM "answers"
+  [1m[36mAnswer Load (0.5ms)[0m  [1mSELECT  "answers".* FROM "answers"   ORDER BY "answers"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.8ms)[0m  DELETE FROM "answers" WHERE "answers"."id" = 4
+  [1m[36mComment Load (0.5ms)[0m  [1mSELECT "comments".* FROM "comments"[0m
+  [1m[35mAnswer Load (0.5ms)[0m  SELECT "answers".* FROM "answers"
+  [1m[36mAnswer Load (0.4ms)[0m  [1mSELECT "answers".* FROM "answers"[0m
+  [1m[35mComment Load (0.4ms)[0m  SELECT "comments".* FROM "comments"
+  [1m[36mAnswer Load (0.6ms)[0m  [1mSELECT  "answers".* FROM "answers"   ORDER BY "answers"."id" DESC LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT "comments".* FROM "comments"  WHERE "comments"."commentable_id" = $1 AND "comments"."commentable_type" = $2[0m  [["commentable_id", 3], ["commentable_type", "Answer"]]
+  [1m[35mVote Load (0.4ms)[0m  SELECT "votes".* FROM "votes"  WHERE "votes"."votable_id" = $1 AND "votes"."votable_type" = $2  [["votable_id", 3], ["votable_type", "Answer"]]
+  [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "answers" WHERE "answers"."id" = $1[0m  [["id", 3]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mAnswer Load (0.5ms)[0m  [1mSELECT "answers".* FROM "answers"[0m
+  [1m[35mComment Load (0.5ms)[0m  SELECT "comments".* FROM "comments"
+  [1m[36mComment Load (0.4ms)[0m  [1mSELECT "comments".* FROM "comments"[0m
+  [1m[35mQuestion Load (0.2ms)[0m  SELECT  "questions".* FROM "questions"   ORDER BY "questions"."id" DESC LIMIT 1
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users"   ORDER BY "users"."id" DESC LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "answers" ("author_id", "content", "created_at", "question_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["author_id", 1], ["content", "abcdefghigdfaddsafasfads"], ["created_at", "2015-12-31 23:07:39.547075"], ["question_id", 4], ["updated_at", "2015-12-31 23:07:39.547075"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users"   ORDER BY "users"."id" DESC LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mAnswer Load (0.3ms)[0m  [1mSELECT  "answers".* FROM "answers"  WHERE "answers"."id" = $1 LIMIT 1[0m  [["id", 5]]
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "comments" ("commentable_id", "commentable_type", "commentor_id", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["commentable_id", 5], ["commentable_type", "Answer"], ["commentor_id", 1], ["content", "fgcfgdfgcfgfxg"], ["created_at", "2015-12-31 23:07:45.559596"], ["updated_at", "2015-12-31 23:07:45.559596"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mAnswer Load (0.6ms)[0m  SELECT  "answers".* FROM "answers"   ORDER BY "answers"."id" DESC LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mComment Load (0.3ms)[0m  SELECT "comments".* FROM "comments"  WHERE "comments"."commentable_id" = $1 AND "comments"."commentable_type" = $2  [["commentable_id", 5], ["commentable_type", "Answer"]]
+  [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "comments" WHERE "comments"."id" = $1[0m  [["id", 2]]
+  [1m[35mVote Load (0.2ms)[0m  SELECT "votes".* FROM "votes"  WHERE "votes"."votable_id" = $1 AND "votes"."votable_type" = $2  [["votable_id", 5], ["votable_type", "Answer"]]
+  [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "answers" WHERE "answers"."id" = $1[0m  [["id", 5]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mComment Load (0.6ms)[0m  [1mSELECT "comments".* FROM "comments"[0m
+  [1m[35mComment Load (0.5ms)[0m  SELECT  "comments".* FROM "comments"   ORDER BY "comments"."id" DESC LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  DELETE FROM "comments" WHERE "comments"."id" = $1  [["id", 1]]
+  [1m[36m (77.2ms)[0m  [1mCOMMIT[0m
+  [1m[35mComment Load (0.5ms)[0m  SELECT "comments".* FROM "comments"
+  [1m[36mQuestion Load (0.5ms)[0m  [1mSELECT  "questions".* FROM "questions"   ORDER BY "questions"."id" DESC LIMIT 1[0m
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users"   ORDER BY "users"."id" DESC LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "answers" ("author_id", "content", "created_at", "question_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["author_id", 1], ["content", "abcdefghigdfaddsafasfads"], ["created_at", "2015-12-31 23:08:41.352620"], ["question_id", 4], ["updated_at", "2015-12-31 23:08:41.352620"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mUser Load (0.5ms)[0m  SELECT  "users".* FROM "users"   ORDER BY "users"."id" DESC LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mAnswer Load (0.3ms)[0m  SELECT  "answers".* FROM "answers"  WHERE "answers"."id" = $1 LIMIT 1  [["id", 6]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "comments" ("commentable_id", "commentable_type", "commentor_id", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["commentable_id", 6], ["commentable_type", "Answer"], ["commentor_id", 1], ["content", "fgcfgdfgcfgfxg"], ["created_at", "2015-12-31 23:08:44.553408"], ["updated_at", "2015-12-31 23:08:44.553408"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mComment Load (0.5ms)[0m  [1mSELECT "comments".* FROM "comments"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mComment Load (0.4ms)[0m  [1mSELECT "comments".* FROM "comments"  WHERE "comments"."commentable_id" = $1 AND "comments"."commentable_type" = $2[0m  [["commentable_id", 6], ["commentable_type", "Answer"]]
+  [1m[35mSQL (0.3ms)[0m  DELETE FROM "comments" WHERE "comments"."id" = $1  [["id", 3]]
+  [1m[36mVote Load (0.3ms)[0m  [1mSELECT "votes".* FROM "votes"  WHERE "votes"."votable_id" = $1 AND "votes"."votable_type" = $2[0m  [["votable_id", 6], ["votable_type", "Answer"]]
+  [1m[35mSQL (0.2ms)[0m  DELETE FROM "answers" WHERE "answers"."id" = $1  [["id", 6]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mComment Load (0.5ms)[0m  SELECT "comments".* FROM "comments"
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35mUser Load (0.6ms)[0m  SELECT  "users".* FROM "users"   ORDER BY "users"."id" DESC LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+PG::UndefinedColumn: ERROR:  column questions.user_id does not exist
+LINE 1: SELECT "questions".* FROM "questions"  WHERE "questions"."us...
+                                                     ^
+: SELECT "questions".* FROM "questions"  WHERE "questions"."user_id" = $1
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35mQuestion Load (0.5ms)[0m  SELECT "questions".* FROM "questions"
+  [1m[36mQuestion Load (0.6ms)[0m  [1mSELECT  "questions".* FROM "questions"   ORDER BY "questions"."id" DESC LIMIT 1[0m
+  [1m[35mAnswer Load (0.3ms)[0m  SELECT "answers".* FROM "answers"  WHERE "answers"."question_id" = $1  [["question_id", 4]]
+  [1m[36mQuestion Load (0.6ms)[0m  [1mSELECT  "questions".* FROM "questions"   ORDER BY "questions"."id" DESC LIMIT 1[0m
+  [1m[35mAnswer Load (0.3ms)[0m  SELECT "answers".* FROM "answers"  WHERE "answers"."question_id" = $1  [["question_id", 4]]
+  [1m[36m (117.9ms)[0m  [1mDROP DATABASE IF EXISTS "smack_undertone_development"[0m
+  [1m[35m (116.1ms)[0m  DROP DATABASE IF EXISTS "smack_undertone_test"
+  [1m[36m (298.5ms)[0m  [1mCREATE DATABASE "smack_undertone_development" ENCODING = 'unicode'[0m
+  [1m[35m (252.5ms)[0m  CREATE DATABASE "smack_undertone_test" ENCODING = 'unicode'
+  [1m[36mSQL (0.3ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (4.9ms)[0m  CREATE TABLE "answers" ("id" serial primary key, "author_id" integer NOT NULL, "question_id" integer NOT NULL, "content" character varying(255) NOT NULL, "is_best" boolean DEFAULT 'f', "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (3.8ms)[0m  [1mCREATE TABLE "comments" ("id" serial primary key, "commentable_id" integer, "commentable_type" character varying(255), "commentor_id" integer NOT NULL, "content" character varying(255) NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (2.0ms)[0m  CREATE  INDEX  "index_comments_on_commentable_id_and_commentable_type" ON "comments" USING btree ("commentable_id", "commentable_type")
+  [1m[36m (4.5ms)[0m  [1mCREATE TABLE "questions" ("id" serial primary key, "author_id" integer NOT NULL, "title" character varying(255) NOT NULL, "content" character varying(255) NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (3.0ms)[0m  CREATE TABLE "users" ("id" serial primary key, "username" character varying(255) NOT NULL, "email" character varying(255) NOT NULL, "password_digest" character varying(255) NOT NULL, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (2.4ms)[0m  [1mCREATE TABLE "votes" ("id" serial primary key, "votable_id" integer, "votable_type" character varying(255), "user_id" integer NOT NULL, "value" integer NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.1ms)[0m  CREATE  INDEX  "index_votes_on_votable_id_and_votable_type" ON "votes" USING btree ("votable_id", "votable_type")
+  [1m[36m (1.2ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (1.3ms)[0m  CREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")
+  [1m[36m (0.4ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35m (0.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20151231213841')
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20151231213748')[0m
+  [1m[35m (0.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20151231213818')
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20151231213823')[0m
+  [1m[35m (0.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20151231213828')
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (1.2ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."username" = 'steven' LIMIT 1[0m
+  [1m[35mUser Exists (0.5ms)[0m  SELECT  1 AS one FROM "users"  WHERE "users"."email" = 'steven@example.com' LIMIT 1
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "password_digest", "updated_at", "username") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2015-12-31 23:13:39.925465"], ["email", "steven@example.com"], ["password_digest", "$2a$10$6oXw9DRlQM8wC77lt1Sime.H/ujViRTEVVHZS/bVIAXURt1DwPzhC"], ["updated_at", "2015-12-31 23:13:39.925465"], ["username", "steven"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (2.3ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (1.5ms)[0m  CREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20151231213748)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (4.3ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "username" character varying(255) NOT NULL, "email" character varying(255) NOT NULL, "password_digest" character varying(255) NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20151231213748"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+Migrating to CreateComments (20151231213818)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (2.8ms)[0m  [1mCREATE TABLE "comments" ("id" serial primary key, "commentable_id" integer, "commentable_type" character varying(255), "commentor_id" integer NOT NULL, "content" character varying(255) NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (0.8ms)[0m  CREATE  INDEX  "index_comments_on_commentable_id_and_commentable_type" ON "comments"  ("commentable_id", "commentable_type")
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20151231213818"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+Migrating to CreateQuestions (20151231213823)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (2.9ms)[0m  CREATE TABLE "questions" ("id" serial primary key, "author_id" integer NOT NULL, "title" character varying(255) NOT NULL, "content" character varying(255) NOT NULL, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20151231213823"]]
+  [1m[35m (0.6ms)[0m  COMMIT
+Migrating to CreateVotes (20151231213828)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (1.9ms)[0m  CREATE TABLE "votes" ("id" serial primary key, "votable_id" integer, "votable_type" character varying(255), "user_id" integer NOT NULL, "value" integer NOT NULL, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (1.0ms)[0m  [1mCREATE  INDEX  "index_votes_on_votable_id_and_votable_type" ON "votes"  ("votable_id", "votable_type")[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20151231213828"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to CreateAnswers (20151231213841)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (2.1ms)[0m  [1mCREATE TABLE "answers" ("id" serial primary key, "author_id" integer NOT NULL, "question_id" integer NOT NULL, "content" character varying(255) NOT NULL, "is_best" boolean DEFAULT 'f', "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20151231213841"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.8ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."username" = 'steven' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users"  WHERE "users"."email" = 'steven@example.com' LIMIT 1
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "password_digest", "updated_at", "username") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2015-12-31 23:15:22.167234"], ["email", "steven@example.com"], ["password_digest", "$2a$10$khFzWGPLC.vYQ0txUATt5OlQRogSXn7eamWsdyCO1I/ZCV4CYSaMW"], ["updated_at", "2015-12-31 23:15:22.167234"], ["username", "steven"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (118.0ms)[0m  [1mDROP DATABASE IF EXISTS "smack_undertone_development"[0m
+  [1m[35m (116.6ms)[0m  DROP DATABASE IF EXISTS "smack_undertone_test"
+  [1m[36m (280.9ms)[0m  [1mCREATE DATABASE "smack_undertone_development" ENCODING = 'unicode'[0m
+  [1m[35m (260.7ms)[0m  CREATE DATABASE "smack_undertone_test" ENCODING = 'unicode'
+  [1m[36mSQL (0.3ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (4.6ms)[0m  CREATE TABLE "answers" ("id" serial primary key, "author_id" integer NOT NULL, "question_id" integer NOT NULL, "content" character varying(255) NOT NULL, "is_best" boolean DEFAULT 'f', "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (3.4ms)[0m  [1mCREATE TABLE "comments" ("id" serial primary key, "commentable_id" integer, "commentable_type" character varying(255), "commentor_id" integer NOT NULL, "content" character varying(255) NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (2.0ms)[0m  CREATE  INDEX  "index_comments_on_commentable_id_and_commentable_type" ON "comments" USING btree ("commentable_id", "commentable_type")
+  [1m[36m (3.6ms)[0m  [1mCREATE TABLE "questions" ("id" serial primary key, "author_id" integer NOT NULL, "title" character varying(255) NOT NULL, "content" character varying(255) NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (3.3ms)[0m  CREATE TABLE "users" ("id" serial primary key, "username" character varying(255) NOT NULL, "email" character varying(255) NOT NULL, "password_digest" character varying(255) NOT NULL, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (3.9ms)[0m  [1mCREATE TABLE "votes" ("id" serial primary key, "votable_id" integer, "votable_type" character varying(255), "user_id" integer NOT NULL, "value" integer NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.8ms)[0m  CREATE  INDEX  "index_votes_on_votable_id_and_votable_type" ON "votes" USING btree ("votable_id", "votable_type")
+  [1m[36m (0.9ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (1.2ms)[0m  CREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")
+  [1m[36m (0.4ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35m (0.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20151231213841')
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20151231213748')[0m
+  [1m[35m (0.3ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20151231213818')
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20151231213823')[0m
+  [1m[35m (0.3ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20151231213828')
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.7ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."username" = 'steven' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users"  WHERE "users"."email" = 'steven@example.com' LIMIT 1
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "password_digest", "updated_at", "username") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2015-12-31 23:21:31.726386"], ["email", "steven@example.com"], ["password_digest", "$2a$10$.E6wfZ9v0EQy3wKEaLonauYggLQlr91rpNUpZb3Cudnkxbh4VFVpa"], ["updated_at", "2015-12-31 23:21:31.726386"], ["username", "steven"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (117.3ms)[0m  [1mDROP DATABASE IF EXISTS "smack_undertone_development"[0m
+  [1m[35m (116.0ms)[0m  DROP DATABASE IF EXISTS "smack_undertone_test"
+  [1m[36m (242.6ms)[0m  [1mCREATE DATABASE "smack_undertone_development" ENCODING = 'unicode'[0m
+  [1m[35m (409.1ms)[0m  CREATE DATABASE "smack_undertone_test" ENCODING = 'unicode'
+  [1m[36mSQL (0.3ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (4.8ms)[0m  CREATE TABLE "answers" ("id" serial primary key, "author_id" integer NOT NULL, "question_id" integer NOT NULL, "content" character varying(255) NOT NULL, "is_best" boolean DEFAULT 'f', "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (5.6ms)[0m  [1mCREATE TABLE "comments" ("id" serial primary key, "commentable_id" integer, "commentable_type" character varying(255), "commentor_id" integer NOT NULL, "content" character varying(255) NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.6ms)[0m  CREATE  INDEX  "index_comments_on_commentable_id_and_commentable_type" ON "comments" USING btree ("commentable_id", "commentable_type")
+  [1m[36m (3.6ms)[0m  [1mCREATE TABLE "questions" ("id" serial primary key, "author_id" integer NOT NULL, "title" character varying(255) NOT NULL, "content" character varying(255) NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (3.9ms)[0m  CREATE TABLE "users" ("id" serial primary key, "username" character varying(255) NOT NULL, "email" character varying(255) NOT NULL, "password_digest" character varying(255) NOT NULL, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (3.0ms)[0m  [1mCREATE TABLE "votes" ("id" serial primary key, "votable_id" integer, "votable_type" character varying(255), "user_id" integer NOT NULL, "value" integer NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.5ms)[0m  CREATE  INDEX  "index_votes_on_votable_id_and_votable_type" ON "votes" USING btree ("votable_id", "votable_type")
+  [1m[36m (0.9ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (1.1ms)[0m  CREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")
+  [1m[36m (0.4ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35m (0.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20151231213841')
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20151231213748')[0m
+  [1m[35m (0.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20151231213818')
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20151231213823')[0m
+  [1m[35m (0.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20151231213828')
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.7ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."username" = 'steven' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users"  WHERE "users"."email" = 'steven@example.com' LIMIT 1
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "password_digest", "updated_at", "username") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2015-12-31 23:22:07.653939"], ["email", "steven@example.com"], ["password_digest", "$2a$10$b9Gsf3tfchmt9BUZGHCQwO.OryXuGwwplJAUlzysX.Anvc44WK9hG"], ["updated_at", "2015-12-31 23:22:07.653939"], ["username", "steven"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "questions" ("author_id", "content", "created_at", "title", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["author_id", 1], ["content", "babdsdfadfafdafafdaf"], ["created_at", "2015-12-31 23:22:07.681721"], ["title", "a?"], ["updated_at", "2015-12-31 23:22:07.681721"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users"   ORDER BY "users"."id" DESC LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "answers" ("author_id", "content", "created_at", "question_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["author_id", 1], ["content", "abcdefghigdfaddsafasfads"], ["created_at", "2015-12-31 23:22:07.696337"], ["question_id", 1], ["updated_at", "2015-12-31 23:22:07.696337"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users"   ORDER BY "users"."id" DESC LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mAnswer Load (0.4ms)[0m  [1mSELECT  "answers".* FROM "answers"  WHERE "answers"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mSQL (0.7ms)[0m  INSERT INTO "comments" ("commentable_id", "commentable_type", "commentor_id", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["commentable_id", 1], ["commentable_type", "Answer"], ["commentor_id", 1], ["content", "fgcfgdfgcfgfxg"], ["created_at", "2015-12-31 23:22:07.729020"], ["updated_at", "2015-12-31 23:22:07.729020"]]
+  [1m[36m (15.7ms)[0m  [1mCOMMIT[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.7ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."username" = 'steven' LIMIT 1[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users"  WHERE "users"."email" = 'steven@example.com' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35mQuestion Load (0.6ms)[0m  SELECT "questions".* FROM "questions"
+  [1m[36mAnswer Load (0.6ms)[0m  [1mSELECT "answers".* FROM "answers"[0m
+  [1m[35mComment Load (0.7ms)[0m  SELECT "comments".* FROM "comments"
+  [1m[36mUser Load (0.8ms)[0m  [1mSELECT  "users".* FROM "users"   ORDER BY "users"."id" DESC LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mQuestion Load (0.3ms)[0m  [1mSELECT "questions".* FROM "questions"  WHERE "questions"."author_id" = $1[0m  [["author_id", 1]]
+  [1m[35mAnswer Load (0.3ms)[0m  SELECT "answers".* FROM "answers"  WHERE "answers"."question_id" = $1  [["question_id", 1]]
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT "comments".* FROM "comments"  WHERE "comments"."commentable_id" = $1 AND "comments"."commentable_type" = $2[0m  [["commentable_id", 1], ["commentable_type", "Answer"]]
+  [1m[35mSQL (0.2ms)[0m  DELETE FROM "comments" WHERE "comments"."id" = $1  [["id", 1]]
+  [1m[36mVote Load (0.5ms)[0m  [1mSELECT "votes".* FROM "votes"  WHERE "votes"."votable_id" = $1 AND "votes"."votable_type" = $2[0m  [["votable_id", 1], ["votable_type", "Answer"]]
+  [1m[35mSQL (0.2ms)[0m  DELETE FROM "answers" WHERE "answers"."id" = $1  [["id", 1]]
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT "comments".* FROM "comments"  WHERE "comments"."commentable_id" = $1 AND "comments"."commentable_type" = $2[0m  [["commentable_id", 1], ["commentable_type", "Question"]]
+  [1m[35mVote Load (0.3ms)[0m  SELECT "votes".* FROM "votes"  WHERE "votes"."votable_id" = $1 AND "votes"."votable_type" = $2  [["votable_id", 1], ["votable_type", "Question"]]
+  [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "questions" WHERE "questions"."id" = $1[0m  [["id", 1]]
+PG::UndefinedColumn: ERROR:  column answers.user_id does not exist
+LINE 1: SELECT "answers".* FROM "answers"  WHERE "answers"."user_id"...
+                                                 ^
+: SELECT "answers".* FROM "answers"  WHERE "answers"."user_id" = $1
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users"   ORDER BY "users"."id" DESC LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mQuestion Load (0.2ms)[0m  [1mSELECT "questions".* FROM "questions"  WHERE "questions"."author_id" = $1[0m  [["author_id", 1]]
+  [1m[35mAnswer Load (0.2ms)[0m  SELECT "answers".* FROM "answers"  WHERE "answers"."question_id" = $1  [["question_id", 1]]
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT "comments".* FROM "comments"  WHERE "comments"."commentable_id" = $1 AND "comments"."commentable_type" = $2[0m  [["commentable_id", 1], ["commentable_type", "Answer"]]
+  [1m[35mSQL (0.3ms)[0m  DELETE FROM "comments" WHERE "comments"."id" = $1  [["id", 1]]
+  [1m[36mVote Load (0.2ms)[0m  [1mSELECT "votes".* FROM "votes"  WHERE "votes"."votable_id" = $1 AND "votes"."votable_type" = $2[0m  [["votable_id", 1], ["votable_type", "Answer"]]
+  [1m[35mSQL (0.2ms)[0m  DELETE FROM "answers" WHERE "answers"."id" = $1  [["id", 1]]
+  [1m[36mComment Load (0.2ms)[0m  [1mSELECT "comments".* FROM "comments"  WHERE "comments"."commentable_id" = $1 AND "comments"."commentable_type" = $2[0m  [["commentable_id", 1], ["commentable_type", "Question"]]
+  [1m[35mVote Load (0.3ms)[0m  SELECT "votes".* FROM "votes"  WHERE "votes"."votable_id" = $1 AND "votes"."votable_type" = $2  [["votable_id", 1], ["votable_type", "Question"]]
+  [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "questions" WHERE "questions"."id" = $1[0m  [["id", 1]]
+  [1m[35mAnswer Load (0.6ms)[0m  SELECT "answers".* FROM "answers"  WHERE "answers"."author_id" = $1  [["author_id", 1]]
+  [1m[36mComment Load (0.2ms)[0m  [1mSELECT "comments".* FROM "comments"  WHERE "comments"."commentor_id" = $1[0m  [["commentor_id", 1]]
+  [1m[35mVote Load (0.2ms)[0m  SELECT "votes".* FROM "votes"  WHERE "votes"."user_id" = $1  [["user_id", 1]]
+  [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "users" WHERE "users"."id" = $1[0m  [["id", 1]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35mQuestion Load (0.5ms)[0m  SELECT "questions".* FROM "questions"
+  [1m[36m (118.0ms)[0m  [1mDROP DATABASE IF EXISTS "smack_undertone_development"[0m
+  [1m[35m (116.4ms)[0m  DROP DATABASE IF EXISTS "smack_undertone_test"
+  [1m[36m (301.5ms)[0m  [1mCREATE DATABASE "smack_undertone_development" ENCODING = 'unicode'[0m
+  [1m[35m (266.3ms)[0m  CREATE DATABASE "smack_undertone_test" ENCODING = 'unicode'
+  [1m[36mSQL (0.3ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (4.3ms)[0m  CREATE TABLE "answers" ("id" serial primary key, "author_id" integer NOT NULL, "question_id" integer NOT NULL, "content" character varying(255) NOT NULL, "is_best" boolean DEFAULT 'f', "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (3.3ms)[0m  [1mCREATE TABLE "comments" ("id" serial primary key, "commentable_id" integer, "commentable_type" character varying(255), "commentor_id" integer NOT NULL, "content" character varying(255) NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.4ms)[0m  CREATE  INDEX  "index_comments_on_commentable_id_and_commentable_type" ON "comments" USING btree ("commentable_id", "commentable_type")
+  [1m[36m (3.6ms)[0m  [1mCREATE TABLE "questions" ("id" serial primary key, "author_id" integer NOT NULL, "title" character varying(255) NOT NULL, "content" character varying(255) NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (3.0ms)[0m  CREATE TABLE "users" ("id" serial primary key, "username" character varying(255) NOT NULL, "email" character varying(255) NOT NULL, "password_digest" character varying(255) NOT NULL, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (3.1ms)[0m  [1mCREATE TABLE "votes" ("id" serial primary key, "votable_id" integer, "votable_type" character varying(255), "user_id" integer NOT NULL, "value" integer NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.7ms)[0m  CREATE  INDEX  "index_votes_on_votable_id_and_votable_type" ON "votes" USING btree ("votable_id", "votable_type")
+  [1m[36m (0.9ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (1.1ms)[0m  CREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")
+  [1m[36m (0.3ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35m (0.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20151231213841')
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20151231213748')[0m
+  [1m[35m (0.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20151231213818')
+  [1m[36m (0.3ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20151231213823')[0m
+  [1m[35m (0.3ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20151231213828')
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.7ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."username" = 'steven' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users"  WHERE "users"."email" = 'steven@example.com' LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "password_digest", "updated_at", "username") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2015-12-31 23:28:18.746514"], ["email", "steven@example.com"], ["password_digest", "$2a$10$qjTnnJhY8GvsyevvWTVsg.WxR.53C2cfoOGrbkt70Y48mw0c9hzmC"], ["updated_at", "2015-12-31 23:28:18.746514"], ["username", "steven"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "questions" ("author_id", "content", "created_at", "title", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["author_id", 1], ["content", "babdsdfadfafdafafdaf"], ["created_at", "2015-12-31 23:28:18.774093"], ["title", "a?"], ["updated_at", "2015-12-31 23:28:18.774093"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"   ORDER BY "users"."id" DESC LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "answers" ("author_id", "content", "created_at", "question_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["author_id", 1], ["content", "abcdefghigdfaddsafasfads"], ["created_at", "2015-12-31 23:28:18.789279"], ["question_id", 1], ["updated_at", "2015-12-31 23:28:18.789279"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users"   ORDER BY "users"."id" DESC LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mAnswer Load (0.3ms)[0m  [1mSELECT  "answers".* FROM "answers"  WHERE "answers"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "comments" ("commentable_id", "commentable_type", "commentor_id", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["commentable_id", 1], ["commentable_type", "Answer"], ["commentor_id", 1], ["content", "fgcfgdfgcfgfxg"], ["created_at", "2015-12-31 23:28:18.806301"], ["updated_at", "2015-12-31 23:28:18.806301"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mQuestion Load (0.3ms)[0m  [1mSELECT  "questions".* FROM "questions"  WHERE "questions"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35m (0.4ms)[0m  ROLLBACK
+  [1m[36m (117.6ms)[0m  [1mDROP DATABASE IF EXISTS "smack_undertone_development"[0m
+  [1m[35m (116.8ms)[0m  DROP DATABASE IF EXISTS "smack_undertone_test"
+  [1m[36m (285.2ms)[0m  [1mCREATE DATABASE "smack_undertone_development" ENCODING = 'unicode'[0m
+  [1m[35m (245.6ms)[0m  CREATE DATABASE "smack_undertone_test" ENCODING = 'unicode'
+  [1m[36mSQL (0.3ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (4.7ms)[0m  CREATE TABLE "answers" ("id" serial primary key, "author_id" integer NOT NULL, "question_id" integer NOT NULL, "content" character varying(255) NOT NULL, "is_best" boolean DEFAULT 'f', "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (3.3ms)[0m  [1mCREATE TABLE "comments" ("id" serial primary key, "commentable_id" integer, "commentable_type" character varying(255), "commentor_id" integer NOT NULL, "content" character varying(255) NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.9ms)[0m  CREATE  INDEX  "index_comments_on_commentable_id_and_commentable_type" ON "comments" USING btree ("commentable_id", "commentable_type")
+  [1m[36m (3.8ms)[0m  [1mCREATE TABLE "questions" ("id" serial primary key, "author_id" integer NOT NULL, "title" character varying(255) NOT NULL, "content" character varying(255) NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (3.6ms)[0m  CREATE TABLE "users" ("id" serial primary key, "username" character varying(255) NOT NULL, "email" character varying(255) NOT NULL, "password_digest" character varying(255) NOT NULL, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (3.7ms)[0m  [1mCREATE TABLE "votes" ("id" serial primary key, "votable_id" integer, "votable_type" character varying(255), "user_id" integer NOT NULL, "value" integer NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.2ms)[0m  CREATE  INDEX  "index_votes_on_votable_id_and_votable_type" ON "votes" USING btree ("votable_id", "votable_type")
+  [1m[36m (1.0ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (1.0ms)[0m  CREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")
+  [1m[36m (0.3ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35m (0.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20151231213841')
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20151231213748')[0m
+  [1m[35m (0.3ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20151231213818')
+  [1m[36m (0.3ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20151231213823')[0m
+  [1m[35m (0.3ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20151231213828')
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.8ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."username" = 'steven' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users"  WHERE "users"."email" = 'steven@example.com' LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "password_digest", "updated_at", "username") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2015-12-31 23:28:52.230825"], ["email", "steven@example.com"], ["password_digest", "$2a$10$4TMc.x1./f.f51iZHJ0b2ePMj3SAEqCxKr3JBKl/4wZ6ZwbwXkNNy"], ["updated_at", "2015-12-31 23:28:52.230825"], ["username", "steven"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "questions" ("author_id", "content", "created_at", "title", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["author_id", 1], ["content", "babdsdfadfafdafafdaf"], ["created_at", "2015-12-31 23:28:52.259058"], ["title", "a?"], ["updated_at", "2015-12-31 23:28:52.259058"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"   ORDER BY "users"."id" DESC LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "answers" ("author_id", "content", "created_at", "question_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["author_id", 1], ["content", "abcdefghigdfaddsafasfads"], ["created_at", "2015-12-31 23:28:52.276296"], ["question_id", 1], ["updated_at", "2015-12-31 23:28:52.276296"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users"   ORDER BY "users"."id" DESC LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mAnswer Load (0.3ms)[0m  [1mSELECT  "answers".* FROM "answers"  WHERE "answers"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "comments" ("commentable_id", "commentable_type", "commentor_id", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["commentable_id", 1], ["commentable_type", "Answer"], ["commentor_id", 1], ["content", "fgcfgdfgcfgfxg"], ["created_at", "2015-12-31 23:28:52.290975"], ["updated_at", "2015-12-31 23:28:52.290975"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mQuestion Load (0.3ms)[0m  [1mSELECT  "questions".* FROM "questions"  WHERE "questions"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "user_id", "value", "votable_id", "votable_type") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["created_at", "2015-12-31 23:28:52.306426"], ["updated_at", "2015-12-31 23:28:52.306426"], ["user_id", 1], ["value", 1], ["votable_id", 1], ["votable_type", "Question"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mAnswer Load (0.2ms)[0m  [1mSELECT  "answers".* FROM "answers"  WHERE "answers"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "user_id", "value", "votable_id", "votable_type") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["created_at", "2015-12-31 23:28:52.311332"], ["updated_at", "2015-12-31 23:28:52.311332"], ["user_id", 1], ["value", -1], ["votable_id", 1], ["votable_type", "Answer"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[36mQuestion Load (0.7ms)[0m  [1mSELECT  "questions".* FROM "questions"   ORDER BY "questions"."id" DESC LIMIT 1[0m
+  [1m[35mVote Load (0.6ms)[0m  SELECT "votes".* FROM "votes"  WHERE "votes"."votable_id" = $1 AND "votes"."votable_type" = $2  [["votable_id", 1], ["votable_type", "Question"]]
+  [1m[36mAnswer Load (0.5ms)[0m  [1mSELECT  "answers".* FROM "answers"   ORDER BY "answers"."id" DESC LIMIT 1[0m
+  [1m[35mVote Load (0.3ms)[0m  SELECT "votes".* FROM "votes"  WHERE "votes"."votable_id" = $1 AND "votes"."votable_type" = $2  [["votable_id", 1], ["votable_type", "Answer"]]
+  [1m[36mAnswer Load (0.6ms)[0m  [1mSELECT  "answers".* FROM "answers"   ORDER BY "answers"."id" DESC LIMIT 1[0m
+  [1m[35m (0.4ms)[0m  SELECT SUM("votes"."value") AS sum_id FROM "votes"  WHERE "votes"."votable_id" = $1 AND "votes"."votable_type" = $2  [["votable_id", 1], ["votable_type", "Answer"]]
+  [1m[36m (118.6ms)[0m  [1mDROP DATABASE IF EXISTS "smack_undertone_development"[0m
+  [1m[35m (116.9ms)[0m  DROP DATABASE IF EXISTS "smack_undertone_test"
+  [1m[36m (284.9ms)[0m  [1mCREATE DATABASE "smack_undertone_development" ENCODING = 'unicode'[0m
+  [1m[35m (251.7ms)[0m  CREATE DATABASE "smack_undertone_test" ENCODING = 'unicode'
+  [1m[36mSQL (0.3ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (4.6ms)[0m  CREATE TABLE "answers" ("id" serial primary key, "author_id" integer NOT NULL, "question_id" integer NOT NULL, "content" character varying(255) NOT NULL, "is_best" boolean DEFAULT 'f', "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (4.0ms)[0m  [1mCREATE TABLE "comments" ("id" serial primary key, "commentable_id" integer, "commentable_type" character varying(255), "commentor_id" integer NOT NULL, "content" character varying(255) NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.9ms)[0m  CREATE  INDEX  "index_comments_on_commentable_id_and_commentable_type" ON "comments" USING btree ("commentable_id", "commentable_type")
+  [1m[36m (3.6ms)[0m  [1mCREATE TABLE "questions" ("id" serial primary key, "author_id" integer NOT NULL, "title" character varying(255) NOT NULL, "content" character varying(255) NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (3.7ms)[0m  CREATE TABLE "users" ("id" serial primary key, "username" character varying(255) NOT NULL, "email" character varying(255) NOT NULL, "password_digest" character varying(255) NOT NULL, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (2.6ms)[0m  [1mCREATE TABLE "votes" ("id" serial primary key, "votable_id" integer, "votable_type" character varying(255), "user_id" integer NOT NULL, "value" integer NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.4ms)[0m  CREATE  INDEX  "index_votes_on_votable_id_and_votable_type" ON "votes" USING btree ("votable_id", "votable_type")
+  [1m[36m (1.0ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (1.5ms)[0m  CREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")
+  [1m[36m (0.4ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35m (0.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20151231213841')
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20151231213748')[0m
+  [1m[35m (0.3ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20151231213818')
+  [1m[36m (0.3ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20151231213823')[0m
+  [1m[35m (0.3ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20151231213828')
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.7ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."username" = 'steven' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users"  WHERE "users"."email" = 'steven@example.com' LIMIT 1
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "password_digest", "updated_at", "username") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2015-12-31 23:31:35.093401"], ["email", "steven@example.com"], ["password_digest", "$2a$10$HPm1zghc4tHzmlEZqIvw.ezqOADxZKc4kv41RLPQ9P7RDZMrQu7pO"], ["updated_at", "2015-12-31 23:31:35.093401"], ["username", "steven"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "questions" ("author_id", "content", "created_at", "title", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["author_id", 1], ["content", "babdsdfadfafdafafdaf"], ["created_at", "2015-12-31 23:31:35.121627"], ["title", "a?"], ["updated_at", "2015-12-31 23:31:35.121627"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users"   ORDER BY "users"."id" DESC LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "answers" ("author_id", "content", "created_at", "question_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["author_id", 1], ["content", "abcdefghigdfaddsafasfads"], ["created_at", "2015-12-31 23:31:35.136266"], ["question_id", 1], ["updated_at", "2015-12-31 23:31:35.136266"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users"   ORDER BY "users"."id" DESC LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mAnswer Load (0.3ms)[0m  [1mSELECT  "answers".* FROM "answers"  WHERE "answers"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "comments" ("commentable_id", "commentable_type", "commentor_id", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["commentable_id", 1], ["commentable_type", "Answer"], ["commentor_id", 1], ["content", "fgcfgdfgcfgfxg"], ["created_at", "2015-12-31 23:31:35.154021"], ["updated_at", "2015-12-31 23:31:35.154021"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mQuestion Load (0.3ms)[0m  [1mSELECT  "questions".* FROM "questions"  WHERE "questions"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "user_id", "value", "votable_id", "votable_type") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["created_at", "2015-12-31 23:31:35.169996"], ["updated_at", "2015-12-31 23:31:35.169996"], ["user_id", 1], ["value", 1], ["votable_id", 1], ["votable_type", "Question"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mAnswer Load (0.2ms)[0m  [1mSELECT  "answers".* FROM "answers"  WHERE "answers"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "user_id", "value", "votable_id", "votable_type") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["created_at", "2015-12-31 23:31:35.174899"], ["updated_at", "2015-12-31 23:31:35.174899"], ["user_id", 1], ["value", -1], ["votable_id", 1], ["votable_type", "Answer"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mAnswer Load (0.2ms)[0m  [1mSELECT  "answers".* FROM "answers"  WHERE "answers"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "user_id", "value", "votable_id", "votable_type") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["created_at", "2015-12-31 23:31:35.178142"], ["updated_at", "2015-12-31 23:31:35.178142"], ["user_id", 1], ["value", -1], ["votable_id", 1], ["votable_type", "Answer"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[36mAnswer Load (0.9ms)[0m  [1mSELECT  "answers".* FROM "answers"   ORDER BY "answers"."id" DESC LIMIT 1[0m
+  [1m[35mAnswer Load (0.7ms)[0m  SELECT  "answers".* FROM "answers"   ORDER BY "answers"."id" DESC LIMIT 1
+  [1m[36mVote Load (0.5ms)[0m  [1mSELECT "votes".* FROM "votes"  WHERE "votes"."votable_id" = $1 AND "votes"."votable_type" = $2[0m  [["votable_id", 1], ["votable_type", "Answer"]]
+  [1m[35mAnswer Load (0.5ms)[0m  SELECT  "answers".* FROM "answers"   ORDER BY "answers"."id" DESC LIMIT 1
+  [1m[36m (0.3ms)[0m  [1mSELECT SUM("votes"."value") AS sum_id FROM "votes"  WHERE "votes"."votable_id" = $1 AND "votes"."votable_type" = $2[0m  [["votable_id", 1], ["votable_type", "Answer"]]
+  [1m[35mQuestion Load (0.4ms)[0m  SELECT  "questions".* FROM "questions"   ORDER BY "questions"."id" DESC LIMIT 1
+  [1m[36m (0.3ms)[0m  [1mSELECT SUM("votes"."value") AS sum_id FROM "votes"  WHERE "votes"."votable_id" = $1 AND "votes"."votable_type" = $2[0m  [["votable_id", 1], ["votable_type", "Question"]]
+  [1m[36m (118.1ms)[0m  [1mDROP DATABASE IF EXISTS "smack_undertone_development"[0m
+  [1m[35m (116.3ms)[0m  DROP DATABASE IF EXISTS "smack_undertone_test"
+  [1m[36m (273.3ms)[0m  [1mCREATE DATABASE "smack_undertone_development" ENCODING = 'unicode'[0m
+  [1m[35m (273.5ms)[0m  CREATE DATABASE "smack_undertone_test" ENCODING = 'unicode'
+  [1m[36mSQL (0.3ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (4.4ms)[0m  CREATE TABLE "answers" ("id" serial primary key, "author_id" integer NOT NULL, "question_id" integer NOT NULL, "content" character varying(255) NOT NULL, "is_best" boolean DEFAULT 'f', "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (3.3ms)[0m  [1mCREATE TABLE "comments" ("id" serial primary key, "commentable_id" integer, "commentable_type" character varying(255), "commentor_id" integer NOT NULL, "content" character varying(255) NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (2.0ms)[0m  CREATE  INDEX  "index_comments_on_commentable_id_and_commentable_type" ON "comments" USING btree ("commentable_id", "commentable_type")
+  [1m[36m (3.5ms)[0m  [1mCREATE TABLE "questions" ("id" serial primary key, "author_id" integer NOT NULL, "title" character varying(255) NOT NULL, "content" character varying(255) NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (3.2ms)[0m  CREATE TABLE "users" ("id" serial primary key, "username" character varying(255) NOT NULL, "email" character varying(255) NOT NULL, "password_digest" character varying(255) NOT NULL, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (3.5ms)[0m  [1mCREATE TABLE "votes" ("id" serial primary key, "votable_id" integer, "votable_type" character varying(255), "user_id" integer NOT NULL, "value" integer NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.8ms)[0m  CREATE  INDEX  "index_votes_on_votable_id_and_votable_type" ON "votes" USING btree ("votable_id", "votable_type")
+  [1m[36m (0.9ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (1.2ms)[0m  CREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")
+  [1m[36m (0.5ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35m (0.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20151231213841')
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20151231213748')[0m
+  [1m[35m (0.3ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20151231213818')
+  [1m[36m (0.3ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20151231213823')[0m
+  [1m[35m (0.3ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20151231213828')
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.9ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."username" = 'steven' LIMIT 1[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users"  WHERE "users"."email" = 'steven@example.com' LIMIT 1
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "password_digest", "updated_at", "username") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2015-12-31 23:33:49.411107"], ["email", "steven@example.com"], ["password_digest", "$2a$10$rXOciA668AWiAYPLUoL41eVypOleJUEvorSgeDsAjZLkVyCC0UpkS"], ["updated_at", "2015-12-31 23:33:49.411107"], ["username", "steven"]]
+  [1m[35m (0.6ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "questions" ("author_id", "content", "created_at", "title", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["author_id", 1], ["content", "babdsdfadfafdafafdaf"], ["created_at", "2015-12-31 23:33:49.466744"], ["title", "a?"], ["updated_at", "2015-12-31 23:33:49.466744"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users"   ORDER BY "users"."id" DESC LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "answers" ("author_id", "content", "created_at", "question_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["author_id", 1], ["content", "abcdefghigdfaddsafasfads"], ["created_at", "2015-12-31 23:33:49.485144"], ["question_id", 1], ["updated_at", "2015-12-31 23:33:49.485144"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users"   ORDER BY "users"."id" DESC LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mAnswer Load (0.3ms)[0m  [1mSELECT  "answers".* FROM "answers"  WHERE "answers"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "comments" ("commentable_id", "commentable_type", "commentor_id", "content", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["commentable_id", 1], ["commentable_type", "Answer"], ["commentor_id", 1], ["content", "fgcfgdfgcfgfxg"], ["created_at", "2015-12-31 23:33:49.503947"], ["updated_at", "2015-12-31 23:33:49.503947"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mQuestion Load (0.3ms)[0m  [1mSELECT  "questions".* FROM "questions"  WHERE "questions"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "user_id", "value", "votable_id", "votable_type") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["created_at", "2015-12-31 23:33:49.520240"], ["updated_at", "2015-12-31 23:33:49.520240"], ["user_id", 1], ["value", 1], ["votable_id", 1], ["votable_type", "Question"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mAnswer Load (0.3ms)[0m  [1mSELECT  "answers".* FROM "answers"  WHERE "answers"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "user_id", "value", "votable_id", "votable_type") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["created_at", "2015-12-31 23:33:49.526202"], ["updated_at", "2015-12-31 23:33:49.526202"], ["user_id", 1], ["value", -1], ["votable_id", 1], ["votable_type", "Answer"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mAnswer Load (0.3ms)[0m  [1mSELECT  "answers".* FROM "answers"  WHERE "answers"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "user_id", "value", "votable_id", "votable_type") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["created_at", "2015-12-31 23:33:49.530300"], ["updated_at", "2015-12-31 23:33:49.530300"], ["user_id", 1], ["value", -1], ["votable_id", 1], ["votable_type", "Answer"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mAnswer Load (0.3ms)[0m  [1mSELECT  "answers".* FROM "answers"  WHERE "answers"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "user_id", "value", "votable_id", "votable_type") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["created_at", "2015-12-31 23:33:49.534249"], ["updated_at", "2015-12-31 23:33:49.534249"], ["user_id", 1], ["value", -1], ["votable_id", 1], ["votable_type", "Answer"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mAnswer Load (0.3ms)[0m  [1mSELECT  "answers".* FROM "answers"  WHERE "answers"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "votes" ("created_at", "updated_at", "user_id", "value", "votable_id", "votable_type") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["created_at", "2015-12-31 23:33:49.538099"], ["updated_at", "2015-12-31 23:33:49.538099"], ["user_id", 1], ["value", 1], ["votable_id", 1], ["votable_type", "Answer"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[36mAnswer Load (1.0ms)[0m  [1mSELECT  "answers".* FROM "answers"   ORDER BY "answers"."id" DESC LIMIT 1[0m
+  [1m[35mVote Load (0.5ms)[0m  SELECT "votes".* FROM "votes"  WHERE "votes"."votable_id" = $1 AND "votes"."votable_type" = $2  [["votable_id", 1], ["votable_type", "Answer"]]
+  [1m[36mAnswer Load (0.7ms)[0m  [1mSELECT  "answers".* FROM "answers"   ORDER BY "answers"."id" DESC LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  SELECT SUM("votes"."value") AS sum_id FROM "votes"  WHERE "votes"."votable_id" = $1 AND "votes"."votable_type" = $2  [["votable_id", 1], ["votable_type", "Answer"]]
