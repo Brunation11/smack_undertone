@@ -47,5 +47,19 @@ RSpec.describe CommentsController do
     end
   end
 
+  describe 'DELETE #destroy' do
+    it 'should delete the comment if it belongs to the user' do
+      session[:user_id] = @user.id
+      delete :destroy, id: @comment.id
+      expect(response).to redirect_to question_path(@comment.commentable_id)
+    end
+
+    it 'should NOT delete the comment if it DOES NOT belong to the user' do
+      session[:user_id] = User.first.id
+      delete :destroy, id: @comment.id
+      expect(response).to redirect_to root_path
+    end
+  end
+
 
 end
