@@ -4,6 +4,6 @@ Rails.application.routes.draw do
     resources :answers, except: :show
   end
 
-  resources :comments, only: [:create, :delete, :update]
+  resources :comments, only: [:new, :create, :delete, :update]
 
 end
