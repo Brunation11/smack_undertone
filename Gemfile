@@ -46,11 +46,11 @@ end
 group :development, :test do
   gem 'pry'
   gem 'byebug'
-  gem 'shoulda-matchers'
+  gem 'shoulda-matchers', '~> 3.0'
   gem 'rspec-rails', '~> 3.0'
   gem 'capybara'
   gem 'launchy'
-  gem 'factory_girl'
+  gem "factory_girl_rails", "~> 4.0"
   gem 'faker'
   gem 'simplecov', :require => false, :group => :test
 
