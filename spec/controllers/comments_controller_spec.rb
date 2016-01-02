@@ -29,7 +29,7 @@ RSpec.describe CommentsController do
 
   describe 'GET #edit' do
     it 'should render the edit comment page' do
-      get :edit, id: 1
+      get :edit, id: @comment.id
       expect(response).to render_template :edit
     end
   end
