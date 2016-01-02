@@ -1,10 +1,6 @@
 require 'rails_helper'
 
-<<<<<<< HEAD:spec/controllers/questions_controller_spec.rb
-RSpec.describe QuestionsController, type: :controller do
-=======
 # RSpec.describe QuestionController, type: :controller do
->>>>>>> master:spec/controllers/question_controller_spec.rb
 
 #   describe "GET #new" do
 #     it "returns http success" do
