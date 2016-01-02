@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 RSpec.describe User, type: :model do
-  it "has a valid factory" do
-    expect(FactoryGirl.create(:user)).to be_valid
+  before(:each) do
+    @user = FactoryGirl.create(:user, username: Faker::Internet.user_name(10), email: Faker::Internet.email)
   end
   it {is_expected.to validate_presence_of(:username)}
   it {is_expected.to validate_uniqueness_of(:username)}
