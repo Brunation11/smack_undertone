@@ -1,19 +1,3 @@
-Skip to content
-This repository
-Search
-Pull requests
-Issues
-Gist
- @jhack32
- Unwatch 9
-  Star 0
- Fork 0 nyc-copperheads-2016/smack_undertone
- Code  Issues 0  Pull requests 1  Wiki  Pulse  Graphs  Settings
-Branch: master Find file Copy pathsmack_undertone/Gemfile.lock
-804470c  5 hours ago
-@Brunation11 Brunation11 commented out byebug gem to test circleci integration
-1 contributor
-RawBlameHistory     204 lines (200 sloc)  4.66 KB
 GEM
   remote: https://rubygems.org/
   specs:
@@ -217,5 +201,3 @@ DEPENDENCIES
 
 BUNDLED WITH
    1.11.2
-Status API Training Shop Blog About Pricing
-© 2016 GitHub, Inc. Terms Privacy Security Contact Help

@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-<<<<<<< HEAD
 
   root 'questions#index'
 
@@ -10,11 +9,11 @@ Rails.application.routes.draw do
   get 'register' => 'users#new'
   resources :users, only: [:create, :destroy]
 
-  resources :questions do
+  resources :questions, shallow: true do
     resources :answers, except: :show
   end
 
-
+  resources :comments, except: [:index, :show]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -70,12 +69,4 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-=======
-  root to: 'questions#index'
-  resources :questions, shallow: true do
-    resources :answers, except: :show
-  end
-
-  resources :comments, except: [:index, :show]
->>>>>>> comments_controller
 end

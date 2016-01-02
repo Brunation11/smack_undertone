@@ -1,11 +1,11 @@
 FactoryGirl.define do
 
   factory :user do
-    username {Faker::Lorem.characters(4)}
+    username {Faker::Internet.user_name(10)}
     email {Faker::Internet.email}
-    # password {Faker::Internet.password(6)}
-    password 'password123'
-    password_confirmation 'password123'
+    faker_password = Faker::Internet.password(10)
+    password faker_password
+    password_confirmation faker_password
   end
 
   factory :question do
@@ -18,7 +18,7 @@ FactoryGirl.define do
     association :author, factory: :user
     association :question
     content {Faker::Lorem.paragraph}
-    is_best {[true, false].sample}
+    is_best false
   end
 
   factory :comment do
@@ -34,16 +34,3 @@ FactoryGirl.define do
   end
 end
 
-<<<<<<< HEAD
-# FactoryGirl.create(:user)
-# FactoryGirl.create(:question)
-# FactoryGirl.create(:answer)
-# FactoryGirl.create(:comment)
-# FactoryGirl.create(:vote)
-=======
-FactoryGirl.create(:user)
-FactoryGirl.create(:question)
-FactoryGirl.create(:answer)
-FactoryGirl.create(:comment)
-FactoryGirl.create(:vote)
->>>>>>> comments_controller
