@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
   root 'questions#index'
 
-  root 'questions#index'
-
   get 'login' => 'sessions#new'
   post 'sessions' => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
