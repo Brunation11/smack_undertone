@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   has_many :votes, dependent: :destroy
 
 
-  # validates_uniqueness_of :username, :email
+  validates_uniqueness_of :username, :email
   validates_presence_of :username, :email, :password
   validates :username, length: { minimum: 4 }
   validates :password, length: { minimum: 6 }

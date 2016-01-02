@@ -54,4 +54,5 @@ group :development, :test do
   gem 'faker'
   gem 'simplecov', :require => false, :group => :test
   gem 'rspec_junit_formatter', '0.2.2'
+  gem 'database_cleaner', '~> 1.5', '>= 1.5.1'
 end
