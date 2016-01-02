@@ -33,8 +33,8 @@ FactoryGirl.define do
   end
 end
 
-FactoryGirl.create(:user)
-FactoryGirl.create(:question)
-FactoryGirl.create(:answer)
-FactoryGirl.create(:comment)
-FactoryGirl.create(:vote)
+# FactoryGirl.create(:user)
+# FactoryGirl.create(:question)
+# FactoryGirl.create(:answer)
+# FactoryGirl.create(:comment)
+# FactoryGirl.create(:vote)
