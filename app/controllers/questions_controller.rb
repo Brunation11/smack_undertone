@@ -1,8 +1,16 @@
 class QuestionsController < ApplicationController
-  skip_before_action :ensure_logged_in, only: :show
+  skip_before_action :ensure_logged_in, only: :index, :show
 
   def index
     @qs = Question.all
+    @most_recent = Question.order(created_at: :desc).limit(10)
+    @trending = Question.order(updated_at: :desc).limit(10)
+    @highest_voted = Vote.
+      where(votable_type: 'Question').
+      order('sum_value DESC').
+      group(:votable_id).
+      limit(10).
+      sum(:value)
   end
 
   def new
@@ -17,6 +25,19 @@ class QuestionsController < ApplicationController
       render 'new'
     end
   end
+
+  def show
+  end
+
+  def edit
+  end
+
+  def update
+  end
+
+  def delete
+  end
+
 
   private
   def qs_params
