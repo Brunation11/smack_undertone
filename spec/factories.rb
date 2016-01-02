@@ -1,10 +1,10 @@
 FactoryGirl.define do
   factory :user do
-    username {Faker::Lorem.characters(4)}
-    email {Faker::Internet.email}
-    password = Faker::Internet.password(6)
-    password password
-    password_confirmation password
+    username Faker::Lorem.characters(5)
+    email {"#{id}" + Faker::Internet.email}
+    faker_password = Faker::Internet.password(6)
+    password faker_password
+    password_confirmation faker_password
   end
 
   factory :question do
@@ -32,3 +32,4 @@ FactoryGirl.define do
     value [1, -1].sample
   end
 end
+
