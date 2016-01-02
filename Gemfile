@@ -54,5 +54,5 @@ group :development, :test do
   gem "factory_girl_rails", "~> 4.0"
   gem 'faker'
   gem 'simplecov', :require => false, :group => :test
-
+  gem 'rspec_junit_formatter', '0.2.2'
 end
