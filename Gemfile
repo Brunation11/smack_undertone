@@ -1,6 +1,7 @@
+
 source 'https://rubygems.org'
 
-
+ruby '2.2.1'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.4'
 # Use postgresql as the database for Active Record
@@ -45,12 +46,12 @@ end
 
 group :development, :test do
   gem 'pry'
-  gem 'byebug'
-  gem 'shoulda-matchers'
+  # gem 'byebug'
+  gem 'shoulda-matchers', '~> 3.0'
   gem 'rspec-rails', '~> 3.0'
   gem 'capybara'
   gem 'launchy'
-  gem 'factory_girl_rails'
+  gem "factory_girl_rails", "~> 4.0"
   gem 'faker'
   gem 'simplecov', :require => false, :group => :test
 

@@ -24,12 +24,12 @@ FactoryGirl.define do
   factory :comment do
     association :commentor, factory: :user
     content {Faker::Lorem.paragraph}
-    association :commentable, [factory: :question, factory: :answer].sample
+    association :commentable, [{factory: :question}, {factory: :answer}].sample
   end
 
   factory :vote do
     association :user
-    association :votable, [factory: :question, factory: :answer].sample
+    association :votable, [{factory: :question}, {factory: :answer}].sample
     value [1, -1].sample
   end
 end

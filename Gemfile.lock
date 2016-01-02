@@ -1,3 +1,19 @@
+Skip to content
+This repository
+Search
+Pull requests
+Issues
+Gist
+ @jhack32
+ Unwatch 9
+  Star 0
+ Fork 0 nyc-copperheads-2016/smack_undertone
+ Code  Issues 0  Pull requests 1  Wiki  Pulse  Graphs  Settings
+Branch: master Find file Copy pathsmack_undertone/Gemfile.lock
+804470c  5 hours ago
+@Brunation11 Brunation11 commented out byebug gem to test circleci integration
+1 contributor
+RawBlameHistory     204 lines (200 sloc)  4.66 KB
 GEM
   remote: https://rubygems.org/
   specs:
@@ -37,7 +53,6 @@ GEM
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
     builder (3.2.2)
-    byebug (8.2.1)
     capybara (2.5.0)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -57,10 +72,10 @@ GEM
     docile (1.1.5)
     erubis (2.7.0)
     execjs (2.6.0)
-    factory_girl (4.4.0)
+    factory_girl (4.5.0)
       activesupport (>= 3.0.0)
-    factory_girl_rails (4.4.1)
-      factory_girl (~> 4.4.0)
+    factory_girl_rails (4.5.0)
+      factory_girl (~> 4.5.0)
       railties (>= 3.0.0)
     faker (1.6.1)
       i18n (~> 0.5)
@@ -181,9 +196,8 @@ PLATFORMS
 DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootstrap-sass
-  byebug
   capybara
-  factory_girl_rails
+  factory_girl_rails (~> 4.0)
   faker
   jbuilder (~> 2.0)
   jquery-rails
@@ -195,11 +209,13 @@ DEPENDENCIES
   rspec-rails (~> 3.0)
   sass-rails
   sdoc (~> 0.4.0)
-  shoulda-matchers
+  shoulda-matchers (~> 3.0)
   simplecov
   spring
   turbolinks
   uglifier (>= 1.3.0)
 
 BUNDLED WITH
-   1.10.6
+   1.11.2
+Status API Training Shop Blog About Pricing
+© 2016 GitHub, Inc. Terms Privacy Security Contact Help
