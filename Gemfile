@@ -49,7 +49,6 @@ group :development, :test do
   # gem 'byebug'
   gem 'shoulda-matchers', '~> 3.0'
   gem 'rspec-rails', '~> 3.0'
-  gem 'rspec_junit_formatter', '0.2.2'
   gem 'capybara'
   gem 'launchy'
   gem "factory_girl_rails", "~> 4.0"
