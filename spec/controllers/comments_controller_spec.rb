@@ -4,8 +4,8 @@ RSpec.describe CommentsController do
   before(:each) do
     @user = FactoryGirl.create(:user)
     @user2 = FactoryGirl.create(:user)
-    @question = @user.questions.create(title: "Hello? blajndknjkasd", content: "dsknladnlsadlsandnsal")
-    @comment = @user.questions.first.comments.create(content: "helloooooooooooooooo", commentor: @user)
+    @question = @user.questions.create!(title: "Hello? blajndknjkasd", content: "dsknladnlsadlsandnsal")
+    @comment = @user.questions.first.comments.create!(content: "helloooooooooooooooo", commentor: @user)
   end
 
   describe 'GET #new' do
