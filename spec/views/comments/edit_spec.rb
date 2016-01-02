@@ -5,6 +5,6 @@ RSpec.describe "comments/edit.html.erb", type: :view do
     @update_comment = FactoryGirl.create(:comment)
     render
 
-    expect(rendered).to match /Edit comment/
+    expect(rendered).to match @update_comment.content
   end
 end
