@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+<<<<<<< HEAD
 
   root 'questions#index'
 
@@ -69,4 +70,12 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+=======
+  root to: 'questions#index'
+  resources :questions, shallow: true do
+    resources :answers, except: :show
+  end
+
+  resources :comments, except: [:index, :show]
+>>>>>>> comments_controller
 end

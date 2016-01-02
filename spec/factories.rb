@@ -1,10 +1,11 @@
 FactoryGirl.define do
+
   factory :user do
     username {Faker::Lorem.characters(4)}
     email {Faker::Internet.email}
-    password = Faker::Internet.password(6)
-    password password
-    password_confirmation password
+    # password {Faker::Internet.password(6)}
+    password 'password123'
+    password_confirmation 'password123'
   end
 
   factory :question do
@@ -33,8 +34,16 @@ FactoryGirl.define do
   end
 end
 
+<<<<<<< HEAD
 # FactoryGirl.create(:user)
 # FactoryGirl.create(:question)
 # FactoryGirl.create(:answer)
 # FactoryGirl.create(:comment)
 # FactoryGirl.create(:vote)
+=======
+FactoryGirl.create(:user)
+FactoryGirl.create(:question)
+FactoryGirl.create(:answer)
+FactoryGirl.create(:comment)
+FactoryGirl.create(:vote)
+>>>>>>> comments_controller
