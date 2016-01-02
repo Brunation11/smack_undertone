@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
   def create
     user = User.find_by(username_param)
     if user && user.authenticate(password_param)
-      session[:user_id] = user.user_id
+      session[:user_id] = user.id
       redirect_to root_path
     else
       render 'new'
@@ -14,17 +14,17 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    session.clear
+    session[:user_id] = nil
     redirect_to root_path
   end
 
   private
     def username_param
-      param.require(:session).permit(:username)
+      params.permit(:username)
     end
 
     def password_param
-      param.require(:session).permit(:password)[:password]
+      params.permit(:password)[:password]
     end
 
 end
