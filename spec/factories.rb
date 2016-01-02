@@ -16,7 +16,7 @@ FactoryGirl.define do
   factory :answer do
     association :author, factory: :user
     association :question
-    content {Faker::Lorem.paragraph}
+    content {Faker::Lorem.sentence}
     is_best {[true, false].sample}
   end
 
@@ -32,9 +32,3 @@ FactoryGirl.define do
     value [1, -1].sample
   end
 end
-
-# FactoryGirl.create(:user)
-# FactoryGirl.create(:question)
-# FactoryGirl.create(:answer)
-# FactoryGirl.create(:comment)
-# FactoryGirl.create(:vote)
