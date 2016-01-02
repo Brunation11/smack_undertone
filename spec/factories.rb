@@ -10,7 +10,7 @@ FactoryGirl.define do
   factory :question do
     association :author, factory: :user
     title {Faker::Book.title}
-    content {Faker::Lorem.paragraph}
+    content {Faker::Lorem.sentence}
   end
 
   factory :answer do

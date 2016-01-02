@@ -3,7 +3,7 @@ require 'spec_helper'
 RSpec.describe SessionsController, type: :controller do
 
   context "new" do
-    it "is successful" do
+    it "successfully renders the login" do
       get :new
       expect(response).to be_success
     end
