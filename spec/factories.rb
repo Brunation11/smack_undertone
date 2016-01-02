@@ -22,7 +22,7 @@ FactoryGirl.define do
 
   factory :comment do
     association :commentor, factory: :user
-    content {Faker::Lorem.paragraph}
+    content {Faker::Lorem.sentence}
     association :commentable, [{factory: :question}, {factory: :answer}].sample
   end
 
