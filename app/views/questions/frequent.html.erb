@@ -1,17 +1,24 @@
 <div class="row static-width main-content-container">
-  <div class="col-md-10 col-md-offset-1">
 
-      <%= render 'questions/nav/frequent_nav' %>
+  <div class="col-md-7 col-md-offset-1">
 
-    <ul>
+    <%= render 'questions/nav/frequent_nav' %>
+
+    <ul class="no-list-style">
 
       <% @trending.each do |qs| %>
 
-        </li><%= qs.title %></li>
+        <%= render partial: 'post_preview', locals: {element: qs} %>
 
       <% end %>
 
     </ul>
 
   </div>
+
+  <div class="col-md-3 text-center">
+    <%= render 'questions_count' %>
+    <%= render 'ad' %>
+  </div>
+
 </div>
