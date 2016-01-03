@@ -10,12 +10,12 @@ Rails.application.routes.draw do
 
   resources :questions, shallow: true do
     resources :answers, except: :show
+    resources :comments, except: [:index, :show]
   end
   get 'newest' => 'questions#newest', as: 'questions/newest'
   get 'frequent' => 'questions#frequent', as: 'questions/frequent'
   get 'highest_voted' => 'questions#highest_voted', as: 'questions/highest_voted'
 
-  resources :comments, except: [:index, :show]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

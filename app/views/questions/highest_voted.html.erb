@@ -7,7 +7,7 @@
 
       <% @highest_voted.each do |qs| %>
 
-        </li><%= qs.title %></li>
+        </li><%= link_to qs.title, question_path(qs.id) %></li>
 
       <% end %>
 
