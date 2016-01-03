@@ -1,0 +1,11 @@
+<% if element.errors.any? %>
+  <div class="row">
+    <div class="errors col-md-4 col-md-offset-4">
+      <ul class="no-list-style">
+        <% element.errors.each do |error| %>
+          <li><%= error.full_messages %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>

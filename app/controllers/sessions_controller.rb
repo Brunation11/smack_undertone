@@ -2,6 +2,7 @@ class SessionsController < ApplicationController
   skip_before_action :ensure_logged_in
 
   def new
+    @user = User.find_or_initialize_by(username_param)
   end
 
   def create

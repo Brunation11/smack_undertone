@@ -13,3 +13,11 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "home_page.scss";
+@import "defaults.scss";
+@import "login_signup.scss";
+@import "main_footer.scss";
+
+.main-content-container {
+  margin-top: 2rem;
+}

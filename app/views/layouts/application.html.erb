@@ -1,14 +1,49 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>SmackUndertone</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+  <head>
+    <title>SmackUndertone</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
 
-<%= yield %>
+    <div class="row main-navbar">
+      <div class="static-width">
 
-</body>
+        <div class="col-md-5 col-md-offset-1">
+          <!-- page logo -->
+        </div>
+
+        <div class="col-md-5 text-right">
+          <nav>
+            <%= render 'layouts/main_navbar' %>
+          </nav>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row secondary-navbar">
+      <div class="static-width">
+
+        <div class=" col-md-5 col-md-offset-1">
+          <div class="col-md-6">
+            <%= link_to (image_tag "stackoverflow-logo.png", class: "logo"), root_path, class: "link secondary-navbar-logo" %>
+          </div>
+        </div>
+
+        <div class="col-md-5 text-right">
+          <nav>
+            <%= render 'layouts/secondary_navbar' %>
+          </nav>
+        </div>
+
+      </div>
+    </div>
+
+    <%= yield %>
+
+    <%= render 'layouts/footer' %>
+  </body>
 </html>
