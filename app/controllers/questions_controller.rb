@@ -48,6 +48,7 @@ class QuestionsController < ApplicationController
   def show
     @qs = Question.find(params[:id])
     @comments = @qs.comments
+    @answers = @qs.answers
   end
 
   def edit
