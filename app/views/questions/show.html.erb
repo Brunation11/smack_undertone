@@ -1,0 +1,28 @@
+<div class="row static-width main-content-container">
+  <div class="col-md-10 col-md-offset-1">
+    <h1><%= @qs.title %></h1>
+    <hr>
+
+    <div class="col-md-1">
+      <%# link_to upvote button %>
+      <%= @qs.votes.sum(:value) %>
+      <%# link_to downvote button %>
+    </div>
+    
+    <main class="col-md-8">
+      <%= @qs.content %>
+      <div class="col-md-offset-8">
+        <p>
+          asked <%= question_datetime(@qs.created_at) %>
+        </p>
+        <p>
+          <img src="http://static.tumblr.com/9df6e4958d7e576121bad9f80db40364/p29zb6q/ROUnl7j85/tumblr_static_55ieoztgoxwkc0w4g4o0ck8o4.gif"/> <%= link_to @qs.author.username, user_path %>
+        </p>
+      </div>
+    </main>
+
+    <div class="col-md-3">
+      <%= image_tag "ruby-ad.png" %>
+    </div>
+  </div>
+</div>

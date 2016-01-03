@@ -20,4 +20,11 @@ RSpec.describe UsersController, type: :controller do
       expect(response).to render_template('new')
     end
   end
+  describe "GET #show" do
+    let(:user3) {FactoryGirl.create(:user, username: Faker::Internet.user_name(10), email: Faker::Internet.email)}
+    it "successfully renders a user profile" do
+      get :show, id: user3
+      expect(response).to be_success
+    end
+  end
 end

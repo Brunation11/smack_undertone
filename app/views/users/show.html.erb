@@ -1,0 +1,9 @@
+<h1><%= @user.username %>'s Profile</h1>
+<div>Member since <%= user_profile_date(@user.created_at) %></div>
+
+<h3>Questions Asked</h3>
+<ul>
+  <% @user.questions.each do |qs| %>
+    <li><%= link_to qs.title, question_path %></li>
+  <% end %>
+</ul>
