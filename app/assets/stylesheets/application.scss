@@ -14,4 +14,8 @@
 @import "bootstrap";
 @import "home_page.scss";
 @import "defaults.scss";
+@import "login_signup.scss";
 
+.main-content-container {
+  margin-top: 2rem;
+}
