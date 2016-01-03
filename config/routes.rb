@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   delete 'logout' => 'sessions#destroy'
 
   get 'register' => 'users#new'
-  resources :users, only: [:create, :destroy]
+  resources :users, only: [:create, :show, :destroy]
 
   resources :questions, shallow: true do
     resources :answers, except: :show
