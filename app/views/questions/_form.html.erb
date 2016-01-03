@@ -1,0 +1,7 @@
+<%= form_for @qs do |f| %>
+  <%= f.label :title %>
+  <div><%= f.text_field :title %></div>
+  <%= f.label :content %>
+  <div><%= f.text_area :content %></div>
+  <p><%= f.submit %></p>
+<% end %>
