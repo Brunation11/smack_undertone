@@ -1,11 +1,11 @@
 <div class="row static-width main-content-container">
   <div class="col-md-10 col-md-offset-1">
 
-    <%= render 'questions/nav/all_nav' %>
+      <%= render 'questions/nav/frequent_nav' %>
 
-        <ul>
+    <ul>
 
-      <% @questions.each do |qs| %>
+      <% @trending.each do |qs| %>
 
         </li><%= qs.title %></li>
 

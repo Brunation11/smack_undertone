@@ -3,9 +3,18 @@ class QuestionsController < ApplicationController
 
   def index
     @questions = Question.all
-    @most_recent = Question.order(created_at: :desc).limit(10)
+  end
+
+  def newest
+    @most_recent = Question.order(created_at: :desc)
+  end
+
+  def frequent
     @trending = Question.order(updated_at: :desc).limit(10)
-    # @highest_voted = Vote.
+  end
+
+  def highest_voted
+        # @highest_voted = Vote.
     #   where(votable_type: 'Question').
     #   order('sum_value DESC').
     #   group(:votable_id).
@@ -14,8 +23,8 @@ class QuestionsController < ApplicationController
     # @highest_voted = @highest_voted.map { |x| Question.find(x[0]) }
 
     @highest_voted = Question.joins(
-      # Question.joins = SELECT questions.* FROM questions 
-      'JOIN (SELECT votable_id, SUM(value) AS score  
+      # Question.joins = SELECT questions.* FROM questions
+      'JOIN (SELECT votable_id, SUM(value) AS score
       FROM votes WHERE votable_type = \'Question\'
       GROUP BY votable_id
       ORDER BY score DESC) v ON questions.id = v.votable_id'
@@ -28,7 +37,8 @@ class QuestionsController < ApplicationController
   end
 
   def create
-    @qs = current_user.questions.build(qs_params)
+    @user = current_user
+    @qs = Question.new(qs_params)
     if @qs.save
       redirect_to questions_path
     else

@@ -1,4 +1,4 @@
-# require 'spec_helper'
+require 'spec_helper'
 
 RSpec.describe SessionsController, type: :controller do
 
@@ -9,7 +9,7 @@ RSpec.describe SessionsController, type: :controller do
     end
   end
   context "#create" do
-    let(:user) {FactoryGirl.create(:user, username: Faker::Internet.user_name, email: Faker::Internet.email)}
+    let(:user) {FactoryGirl.create(:user, username: Faker::Internet.user_name(10), email: Faker::Internet.email)}
     it "redirects to root path if correct credentials" do
       post :create, session: {username: user.username, password: user.password}
       expect(response).to redirect_to root_path

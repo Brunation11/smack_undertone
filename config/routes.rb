@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'questions#index'
+  root 'questions#newest'
 
   get 'login' => 'sessions#new'
   post 'sessions' => 'sessions#create'
@@ -11,6 +11,9 @@ Rails.application.routes.draw do
   resources :questions, shallow: true do
     resources :answers, except: :show
   end
+  get 'newest' => 'questions#newest', as: 'questions/newest'
+  get 'frequent' => 'questions#frequent', as: 'questions/frequent'
+  get 'highest_voted' => 'questions#highest_voted', as: 'questions/highest_voted'
 
   resources :comments, except: [:index, :show]
 
