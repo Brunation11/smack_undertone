@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :users, only: [:create, :show, :destroy]
 
   resources :questions, shallow: true do
-    resources :answers, except: :show
+    resources :answers, except: [:show, :index]
     resources :comments, except: [:index, :show]
   end
   get 'newest' => 'questions#newest', as: 'questions/newest'
