@@ -10,20 +10,21 @@ RSpec.describe CommentsController do
 
   describe 'GET #new' do
     it 'shows the new comment form' do
-      get :new
+      get :new, question_id: @question.id
       expect(response).to render_template :new
     end
   end
 
   describe 'POST #create' do
     it 'able to create a comment for question' do
-      post :create, { :comment => { commentor_id: @user.id, content: "blahblahblahblahblah", commentable_type: "Question", commentable_id: @question.id} }
-      expect(response).to redirect_to root_path
+      session[:user_id] = @user.id
+      post :create, question_id: @question.id, :comment => { commentor: @user, content: "blahblahblahblahblah" }
+      expect(response).to redirect_to question_path(@question.id)
     end
 
     it 'should render the comment form if comment fails' do
-      post :create, { :comment => { commentor_id: @user.id, content: "blah"} }
-      expect(response).to render_template :new
+      post :create, { question_id: @question.id, :comment => { commentor: @user, content: "blah"} }
+      expect(response).to redirect_to root_path
     end
   end
 

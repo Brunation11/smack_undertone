@@ -8,9 +8,24 @@
       <%= @qs.votes.sum(:value) %>
       <%# link_to downvote button %>
     </div>
-    
+
     <main class="col-md-8">
       <%= @qs.content %>
+      <div>
+      <%= link_to 'Add Answer', new_question_answer_path(@qs.id) %>
+    </div>
+    <div>
+      <%= link_to 'Add comment', new_question_comment_path(@qs.id) %>
+    </div>
+      <div>
+        <h3>Comments</h3>
+        <% @comments.each do |comment| %>
+          <%= comment.content %>
+          <div>
+          by <%= comment.commentor.username %>
+          </div>
+        <% end %>
+      </div>
       <div class="col-md-offset-8">
         <p>
           asked <%= question_datetime(@qs.created_at) %>
