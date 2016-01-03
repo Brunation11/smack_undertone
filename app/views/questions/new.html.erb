@@ -1,2 +1,5 @@
-<h1>Enter Question Details</h1>
-<%= render 'new' %>
+<div class="row static-width main-content-container">
+  <h1>Enter Question Details</h1>
+  <%= render partial: 'layouts/errors', locals: { element: @qs } %>
+  <%= render 'form' %>
+</div>
