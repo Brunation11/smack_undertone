@@ -20,4 +20,10 @@ RSpec.describe UsersController, type: :controller do
       expect(response).to render_template('new')
     end
   end
+  describe "GET #show" do
+    it "successfully renders a user profile" do
+      get :show
+      expect(response).to be_success
+    end
+  end
 end
