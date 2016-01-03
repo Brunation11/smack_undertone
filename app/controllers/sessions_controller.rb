@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
 
   def new
+    @user = User.find_or_initialize_by(username_param)
   end
 
   def create
