@@ -9,17 +9,17 @@ RSpec.describe SessionsController, type: :controller do
     end
   end
   context "#create" do
-    let(:user) {FactoryGirl.create(:user)}
+    let(:user) {FactoryGirl.create(:user, username: Faker::Internet.user_name, email: Faker::Internet.email)}
     it "redirects to root path if correct credentials" do
-      post :create, username: user.username, password: user.password
+      post :create, session: {username: user.username, password: user.password}
       expect(response).to redirect_to root_path
     end
     it "redirects to login path with bad username" do
-      post :create, username: Faker::Hipster.word, password: user.password
+      post :create, session: {username: Faker::Hipster.word, password: user.password}
       expect(response).to render_template('new')
     end
     it "redirects to login path with bad password" do
-      post :create, username: user.username, password: Faker::Internet.password
+      post :create, session: {username: user.username, password: Faker::Internet.password}
       expect(response).to render_template('new')
     end
   end
