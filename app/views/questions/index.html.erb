@@ -1,5 +1,13 @@
-<%# Add link_to's for most_recent, trending, and highest_voted question display options %>
+<%= link_to 'Add a Question', new_question_path %>
 
-<% @qs.each do |q| %>
-  <div><%= q.title %></div>
-<% end %>
+<h1>All Questions</h1>
+<%= render 'all' %>
+
+<h1>Most Recent</h1>
+<%= render 'most_recent' %>
+
+<h1>Trending</h1>
+<%= render 'trending' %>
+
+<h1>Highest Voted</h1>
+<%= render 'highest_voted' %>
