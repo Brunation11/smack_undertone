@@ -1,7 +1,13 @@
-<%= form_for :user, url: users_path do |f| %>
-  <%= f.label :username %>
-  <%= f.text_field :username %>
-  <%= f.label :password %>
-  <%= f.text_field :password %>
-  <%= f.submit %>
-<% end %>
+<div class="row static-width text-center main-content-container">
+  <div class="col-md-10 col-md-offset-1">
+
+    <%= render 'nav' %>
+
+    <%= render partial: 'layouts/errors', locals: {element: @user} %>
+
+    <%= render 'form' %>
+
+    <%= render 'registration_sub_form' %>
+
+  </div>
+</div>
