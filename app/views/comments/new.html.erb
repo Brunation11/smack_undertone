@@ -1,4 +1,4 @@
-  <%= form_for Comment.new, url: question_comments_path(@question.id.to_i) do |t| %>
+  <%= form_for Comment.new, url: question_comments_path(@question.id) do |t| %>
 
     <%= t.label :message %>
     <%= t.text_area :content %>

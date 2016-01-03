@@ -6,8 +6,8 @@ class CommentsController < ApplicationController
 
   def create
     params[:question_id] ? question_comment : answer_comment
-    if new_comment.save
-      redirect_to question_path(new_comment.commentable_id)
+    if @new_comment.save
+      redirect_to question_path(@new_comment.commentable_id)
     else
       flash[:warning] = "There was a problem saving the comment"
       redirect_to root_path
