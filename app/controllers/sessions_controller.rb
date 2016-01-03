@@ -2,11 +2,10 @@ class SessionsController < ApplicationController
   skip_before_action :ensure_logged_in
 
   def new
-    # @user = User.find_or_initialize_by(username_param)
   end
 
   def create
-    user = User.find_by(username: username_param)
+    user = User.find_by(username_param)
     if user && user.authenticate(password_param)
       session[:user_id] = user.id
       redirect_to root_path
@@ -22,11 +21,11 @@ class SessionsController < ApplicationController
 
   private
     def username_param
-      params[:session][:username]
+      params.require(:session).permit(:username)
     end
 
     def password_param
-      params[:session][:password]
+      params.require(:session).permit(:password)[:password]
     end
 
 end
