@@ -6,14 +6,17 @@ class QuestionsController < ApplicationController
   end
 
   def newest
+    @questions = Question.all
     @most_recent = Question.order(created_at: :desc)
   end
 
   def frequent
+    @questions = Question.all
     @trending = Question.order(updated_at: :desc).limit(10)
   end
 
   def highest_voted
+    @questions = Question.all
         # @highest_voted = Vote.
     #   where(votable_type: 'Question').
     #   order('sum_value DESC').
@@ -55,7 +58,7 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    @qs = Question.find(params[:id])  
+    @qs = Question.find(params[:id])
     if @qs.update(qs_params)
       redirect_to @qs
     else
