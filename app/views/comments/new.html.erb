@@ -1,8 +1,10 @@
+<div class="row static-width main-content-container"> 
   <%= form_for Comment.new, url: question_comments_path(@question.id) do |t| %>
 
     <%= t.label :message %>
-    <%= t.text_area :content %>
+    <div><%= t.text_area :content %></div>
 
-    <%= t.submit 'Submit comment' %>
+    <div><%= t.submit 'Submit comment' %></div>
 
   <% end %>
+</div>

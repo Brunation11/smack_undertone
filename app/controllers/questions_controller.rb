@@ -37,8 +37,7 @@ class QuestionsController < ApplicationController
   end
 
   def create
-    @user = current_user
-    @qs = Question.new(qs_params)
+    @qs = current_user.questions.build(qs_params)
     if @qs.save
       redirect_to questions_path
     else
@@ -52,12 +51,22 @@ class QuestionsController < ApplicationController
   end
 
   def edit
+    @qs = Question.find(params[:id])
   end
 
   def update
+    @qs = Question.find(params[:id])  
+    if @qs.update(qs_params)
+      redirect_to @qs
+    else
+      render 'edit'
+    end
   end
 
   def destroy
+    @qs = Question.find(params[:id])
+    @qs.destroy
+    redirect_to questions_path
   end
 
 

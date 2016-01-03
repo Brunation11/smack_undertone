@@ -10,13 +10,31 @@
     </div>
 
     <main class="col-md-8">
-      <%= @qs.content %>
+      <p><%= @qs.content %></p>
+      <!-- Prevent visitors from editing and deleting. -->
+      <% if current_user == @qs.author %>
+        <p>
+          <%= link_to 'edit', edit_question_path %>
+          <%= link_to 'delete', question_path(@qs), method: :delete, data: {confirm: 'Are you sure?'} %>
+        </p>
+      <% end %>
+
+      <div class="col-md-offset-8">
+        <p>
+          asked <%= question_datetime(@qs.created_at) %>
+        </p>
+        <p>
+          <img src="http://static.tumblr.com/9df6e4958d7e576121bad9f80db40364/p29zb6q/ROUnl7j85/tumblr_static_55ieoztgoxwkc0w4g4o0ck8o4.gif"/> <%= link_to @qs.author.username, user_path %>
+        </p>
+      </div>
+      <hr>
+
       <div>
-      <%= link_to 'Add Answer', new_question_answer_path(@qs.id) %>
-    </div>
-    <div>
-      <%= link_to 'Add comment', new_question_comment_path(@qs.id) %>
-    </div>
+        <%= link_to 'Add Answer', new_question_answer_path(@qs.id) %>
+      </div>
+      <div>
+        <%= link_to 'Add comment', new_question_comment_path(@qs.id) %>
+      </div>
       <div>
         <h3>Comments</h3>
         <% @comments.each do |comment| %>
@@ -25,14 +43,6 @@
           by <%= comment.commentor.username %>
           </div>
         <% end %>
-      </div>
-      <div class="col-md-offset-8">
-        <p>
-          asked <%= question_datetime(@qs.created_at) %>
-        </p>
-        <p>
-          <img src="http://static.tumblr.com/9df6e4958d7e576121bad9f80db40364/p29zb6q/ROUnl7j85/tumblr_static_55ieoztgoxwkc0w4g4o0ck8o4.gif"/> <%= link_to @qs.author.username, user_path %>
-        </p>
       </div>
     </main>
 
