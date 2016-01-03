@@ -2,7 +2,7 @@ class QuestionsController < ApplicationController
   skip_before_action :ensure_logged_in, only: [:index, :show]
 
   def index
-    @qs = Question.all
+    @questions = Question.all
     @most_recent = Question.order(created_at: :desc).limit(10)
     @trending = Question.order(updated_at: :desc).limit(10)
     # @highest_voted = Vote.
