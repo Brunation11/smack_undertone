@@ -11,11 +11,11 @@
     <div class="row main-navbar">
       <div class="static-width">
 
-        <div class="col-md-5 col-md-offset-1">
-          <!-- page logo -->
+        <div class="col-md-3 col-md-offset-1">
+          <%= link_to (image_tag "exchange-logo.png", class: "exchange-logo"), root_path, class: "link secondary-navbar-logo" %>
         </div>
 
-        <div class="col-md-5 text-right">
+        <div class="col-md-7 text-right">
           <nav>
             <%= render 'layouts/main_navbar' %>
           </nav>
@@ -29,7 +29,7 @@
 
         <div class=" col-md-5 col-md-offset-1">
           <div class="col-md-6">
-            <%= link_to (image_tag "stackoverflow-logo.png", class: "logo"), root_path, class: "link secondary-navbar-logo" %>
+            <%= link_to (image_tag "smack-undertone-logo.png", class: "logo"), root_path, class: "link secondary-navbar-logo" %>
           </div>
         </div>
 
