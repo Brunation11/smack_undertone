@@ -1,0 +1,5 @@
+<% @highest_voted.each do |qs| %>
+  <div>
+    <%= link_to qs.title, question_path(qs) %>
+  </div>
+<% end %>
