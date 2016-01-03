@@ -10,7 +10,7 @@ us = User.create!(email:'steven@example.com', password:'abcdefghij', password_co
 u2 = User.create!(email:'euni@example.com', password: '123456', password_confirmation: '123456', username:'euni')
 
 qu = us.questions.create!(title: "How can I #{Faker::Company.bs}?", content: Faker::Hipster.paragraphs(4).join)
-q2 = u2.questions.create!(title: "What does #{Faker::Company.bs} mean?", content: Faker::Hipster.paragraphs(4).join)
+q2 = u2.questions.create!(title: "How to reverse a stack recursively?", content: "To understand recursion, one must first understand recursion.")
 q3 = u2.questions.create!(title: 'Polymorpha-what?', content: Faker::Hipster.paragraphs(4).join)
 
 an = qu.answers.create!(author:User.last, content: Faker::Hacker.say_something_smart)
