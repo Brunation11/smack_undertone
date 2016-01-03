@@ -1,17 +1,25 @@
 <div class="row static-width main-content-container">
-  <div class="col-md-10 col-md-offset-1">
+
+  <div class="col-md-7 col-md-offset-1">
 
     <%= render 'questions/nav/newest_nav' %>
 
-    <ul>
+    <ul class="no-list-style">
 
       <% @most_recent.each do |qs| %>
 
-        </li><%= link_to qs.title, question_path(qs.id) %></li>
+        <%= render partial: 'post_preview', locals: {element: qs} %>
+
 
       <% end %>
 
     </ul>
 
   </div>
+
+  <div class="col-md-3 text-center">
+    <%= render 'questions_count' %>
+    <%= render 'ad' %>
+  </div>
+
 </div>
