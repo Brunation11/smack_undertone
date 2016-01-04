@@ -1,8 +1,8 @@
 class CommentsController < ApplicationController
 
   def new
-    @comment = Comment.new
     @question = Question.find(params[:question_id])
+    @comment = @question.comments.new
   end
 
   def create
@@ -10,8 +10,7 @@ class CommentsController < ApplicationController
     if @new_comment.save
       redirect_to question_path(@new_comment.commentable_id)
     else
-      flash[:warning] = "There was a problem saving the comment"
-      redirect_to root_path
+      render :new
     end
   end
 
@@ -40,9 +39,6 @@ class CommentsController < ApplicationController
 
 
   private
-  # def comments_param
-    # params.require(:comment).permit(:commentor_id, :content, :commentable_type, :commentable_id)
-  # end
   def question_comment
     question = Question.find(params[:question_id])
     @new_comment = question.comments.new(commentor: current_user, content: params[:comment][:content])
