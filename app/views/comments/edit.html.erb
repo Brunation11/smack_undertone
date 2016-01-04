@@ -1,4 +1,4 @@
-<%= form_for :update_comment, comment_path(params[:id]), method: 'put' do |t| %>
+<%= form_for :comment, url: comment_path(params[:id]), method: 'put' do |t| %>
 
   <%= t.label :message %>
   <%= t.text_area :content %>

@@ -38,13 +38,13 @@ RSpec.describe CommentsController do
   describe 'PUT #update' do
     it 'should update the comment if it belongs to user' do
       session[:user_id] = @user.id
-      put :update, id: @comment.id, :update_comment => { content: "hellooooooooooooood123oo" }
+      put :update, id: @comment.id, :comment => { content: "hellooooooooooooood123oo" }
       expect(response).to redirect_to root_path
     end
 
     it 'should NOT update if not the user who created the comment' do
       session[:user_id] = @user2.id
-      put :update, id: @comment.id, :update_comment => { content: "hellooooooooooooood123oo" }
+      put :update, id: @comment.id, :comment => { content: "hellooooooooooooood123oo" }
       expect(response).to render_template :edit
     end
   end
