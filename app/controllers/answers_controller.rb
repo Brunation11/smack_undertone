@@ -16,17 +16,17 @@ class AnswersController < ApplicationController
     end
   end
 
-
   def edit
     @answer = Answer.find(params[:id])
+    @question = @answer.question
   end
 
   def update
     @answer = Answer.find(params[:id])
-    if @answer.update_attributes(content: params[:content])
+    if @answer.update(answer_params)
       redirect_to question_path(@answer.question)
     else
-      render :new
+      render :edit
     end
   end
 
@@ -38,5 +38,11 @@ class AnswersController < ApplicationController
       flash[:notice] = "There was a problem deleting the comment"
       redirect_to root_path
     end
+  end
+
+  private
+
+  def answer_params
+    params.require(:answer).permit(:content, :question_id)
   end
 end

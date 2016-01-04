@@ -1,7 +1,0 @@
-<ul class="no-list-style no-padding">
-  <%= form_for :comment, url: question_comments_path(@comment.commentable) do |t| %>
-    <li><%= t.label :message, class: "form-field" %></li>
-    <li><%= t.text_area :content, class: "form-field content-field" %></li>
-    <li><%= submit_tag("Submit Your Comment", class: "form-button") %></li>
-  <% end %>
-</ul>
