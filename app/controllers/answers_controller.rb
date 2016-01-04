@@ -1,13 +1,14 @@
 class AnswersController < ApplicationController
 
   def new
-    @answer = Answer.new
+    @question = Question.find(params[:question_id])
+    @answer = @question.answers.new
   end
 
   def create
     question = Question.find(params[:question_id])
-    answer = question.answers.build(author: current_user, content: params[:answer][:content])
-    if answer.save
+    @answer = question.answers.build(author: current_user, content: params[:answer][:content])
+    if @answer.save
       redirect_to question_path(question.id)
     else
       flash[:notice] = "Error creating answer"
