@@ -10,8 +10,7 @@ class QuestionsController < ApplicationController
     @most_recent = Question.order(created_at: :desc)
   end
 
-  def frequent
-    @questions = Question.all
+  def trending
     @trending = Question.order(updated_at: :desc).limit(10)
   end
 
