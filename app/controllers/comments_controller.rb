@@ -6,6 +6,7 @@ class CommentsController < ApplicationController
   end
 
   def create
+    binding.pry
     params[:question_id] ? question_comment : answer_comment
     if @new_comment.save
       redirect_to question_path(@new_comment.commentable_id)

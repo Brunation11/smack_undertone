@@ -1,0 +1,8 @@
+<ul class="no-list-style no-padding">
+  <%= form_for :answer, url: question_answers_path(@answer.question) do |t| %>
+    <li><%= t.label :answer, class: "form-field" %></li>
+    <li><%= t.text_area :content, class: "form-field content-field" %></li>
+    <li><%= submit_tag("Post Your Answer", class: "form-button") %></li>
+  <% end %>
+</ul>
+
