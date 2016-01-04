@@ -2,9 +2,9 @@
 
   <div class="col-md-7 col-md-offset-1">
     <%= render partial: 'layouts/errors', locals: { element: @comment } %>
-    
+
     <ul class="no-list-style no-padding">
-      <%= form_for [@comment, @comment.commentable], url: comment_path(@comment) do |t| %>
+      <%= form_for [@comment.commentable, @comment], url: comment_path(@comment) do |t| %>
         <li><%= t.label :message, class: "form-field" %></li>
         <li><%= t.text_area :content, class: "form-field content-field" %></li>
         <li><%= submit_tag("Submit Your Comment", class: "form-button") %></li>
