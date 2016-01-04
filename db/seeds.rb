@@ -31,29 +31,29 @@ a1.votes.create!(value: -1, user: u3)
 
 25.times do
   faker_password = Faker::Internet.password
-  FactoryGirl.create(:user, username: Faker::Internet.user_name, email: Faker::Internet.email, password: faker_password, password_confirmation: faker_password)
+  FactoryGirl.create(:user, username: Faker::Internet.user_name(4), email: Faker::Internet.email, password: faker_password, password_confirmation: faker_password)
 end
-​
+
 users = User.all
-​
+
 50.times do
   FactoryGirl.create(:question, author: users.sample, content: Faker::Hipster.paragraphs(5).join)
 end
-​
+
 questions = Question.all
-​
+
 100.times do
   FactoryGirl.create(:answer, author: users.sample, question: questions.sample, content: Faker::Hipster.paragraphs(3).join)
 end
-​
+
 answers = Answer.all
-​
+
 200.times do
   FactoryGirl.create(:comment, commentor: users.sample, commentable:[questions.sample, answers.sample].sample)
 end
-​
+
 comments = Comment.all
-​
+
 400.times do
   FactoryGirl.create(:vote, user: users.sample, votable:[questions.sample, answers.sample].sample)
 end
