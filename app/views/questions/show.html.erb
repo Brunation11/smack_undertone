@@ -54,21 +54,6 @@
             <% end %>
           </div>
         <% end %>
-
-      </div>
-
-      <div>
-        <h3>Answers</h3>
-        <% @answers.each do |answer| %>
-          <%= answer.content %>
-          <div>
-          by <%= answer.author.username %>
-          </div>
-          <div>
-          <%= link_to 'edit', edit_answer_path(answer.id) %>
-          <%= link_to 'delete', '/answers/' + answer.id.to_s, method: 'delete' %>
-          </div>
-        <% end %>
       </div>
 
       <div>
