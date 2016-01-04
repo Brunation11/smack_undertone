@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     resources :comments, except: [:index, :show]
   end
   get 'newest' => 'questions#newest', as: 'questions/newest'
-  get 'frequent' => 'questions#frequent', as: 'questions/frequent'
+  get 'trending' => 'questions#trending', as: 'questions/trending'
   get 'highest_voted' => 'questions#highest_voted', as: 'questions/highest_voted'
 
 
