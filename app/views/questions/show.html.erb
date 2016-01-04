@@ -10,7 +10,7 @@
     </div>
 
     <main class="col-md-8">
-      <p><%= @qs.content %></p>
+      <p><%= markdown(@qs.content) %></p>
       <!-- Prevent visitors from editing and deleting. -->
       <% if current_user == @qs.author %>
         <p>

@@ -1,7 +1,9 @@
-<%= form_for @qs do |f| %>
-  <%= f.label :title %>
-  <div><%= f.text_field :title %></div>
-  <%= f.label :content %>
-  <div><%= f.text_area :content %></div>
-  <p><%= f.submit %></p>
-<% end %>
+<ul class="no-list-style no-padding">
+  <%= form_for @qs do |f| %>
+    <li><%= f.label :title,  class: "form-field" %></li>
+    <li><%= f.text_field :title, placeholder: "What's your programming question? Be specific.", class: "form-field" %></li>
+    <li><%= f.label :content,  class: "form-field" %></li>
+    <li><%= f.text_area :content,  class: "form-field content-field" %></li>
+    <li><%= submit_tag("Post Your Question", class: "form-button") %></li>
+  <% end %>
+</ul>

@@ -4,7 +4,7 @@
 
   <div class="col-md-11">
     <li class="post-preview-title"><%= link_to element.title, question_path(element) %></li>
-    <li><%= element.content[0..200] %></li>
+    <li><%= markdown(element.content[0..200]) %></li>
   </div>
 
 </div>
