@@ -6,7 +6,6 @@ class CommentsController < ApplicationController
   end
 
   def create
-    binding.pry
     params[:question_id] ? question_comment : answer_comment
     if @new_comment.save
       redirect_to question_path(@new_comment.commentable_id)
@@ -22,7 +21,7 @@ class CommentsController < ApplicationController
   def update
     @comment = Comment.find(params[:id])
     if @comment.commentable_type == "Question"
-      if valid_user(@comment) && @comment.update(content: params[:question][:content])
+      if valid_user(@comment) && @comment.update(content: params[:comment][:content])
         redirect_to @comment.commentable
       else
         render :edit
