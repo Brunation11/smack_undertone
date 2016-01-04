@@ -1,5 +1,34 @@
 <div class="row static-width main-content-container">
-  <h1>Enter Question Details</h1>
-  <%= render partial: 'layouts/errors', locals: { element: @qs } %>
-  <%= render 'form' %>
+
+  <div class="col-md-7 col-md-offset-1">
+    <h1>Enter Question Details</h1>
+    <%= render partial: 'layouts/errors', locals: { element: @qs } %>
+    <%= render 'form' %>
+  </div>
+
+  <div class="col-md-3">
+    <div class="col-md-12 question-meta">
+      <h1 class="question-meta-header">How to Ask</h1>
+      <strong>Is your question about programming?</strong>
+      <p>We prefer questions that can be answered, not just discussed.</p>
+      <p>Provide details. Share your research.</p>
+      <p>If your question is about this website, <span class="primary-blue">ask it on meta</span> instead.</p>
+    </div>
+
+    <div class="col-md-12 question-meta">
+      <h1 class="question-meta-header">How to Format</h1>
+      <h2 class="question-meta-sub-header">Our form fields now support Markdown!</h2>
+      <ul class="question-meta-markdown-tips">
+        <li>_italic_ or **bold**</li>
+        <li>put returns between paragraphs</li>
+        <li>use ``` followed by language to enter code blocks</li>
+        <li>quote by place > at the start of line</li>
+        <li>to add links use:</li>
+        <li>[alt text](http://foo.com)</li>
+        <li><span class="primary-blue">basic HTML</span> also allowed</li>
+        <li><a href="https://daringfireball.net/projects/markdown/"><span class="primary-blue">formating help</span></a></li>
+      </ul>
+    </div>
+  </div>
+
 </div>

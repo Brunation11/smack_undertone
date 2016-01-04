@@ -115,6 +115,7 @@ GEM
     rake (10.4.2)
     rdoc (4.2.1)
       json (~> 1.4)
+    redcarpet (3.3.4)
     rspec-core (3.4.1)
       rspec-support (~> 3.4.0)
     rspec-expectations (3.4.0)
@@ -184,6 +185,7 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootstrap-sass
   capybara
+  coderay
   factory_girl_rails (~> 4.0)
   faker
   jbuilder (~> 2.0)
@@ -193,6 +195,7 @@ DEPENDENCIES
   pry
   rails (= 4.1.4)
   rails_12factor
+  redcarpet
   rspec-rails (~> 3.0)
   rspec_junit_formatter (= 0.2.2)
   sass-rails
