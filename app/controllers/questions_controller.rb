@@ -11,6 +11,7 @@ class QuestionsController < ApplicationController
   end
 
   def trending
+    @questions = Question.all
     @trending = Question.order(updated_at: :desc).limit(10)
   end
 
@@ -54,17 +55,17 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    @qs = Question.find(params[:id])
+    @qs = find_qs
     @comments = @qs.comments
     @answers = @qs.answers
   end
 
   def edit
-    @qs = Question.find(params[:id])
+    @qs = find_qs
   end
 
   def update
-    @qs = Question.find(params[:id])
+    @qs = find_qs
     if @qs.update(qs_params)
       redirect_to @qs
     else
@@ -73,7 +74,7 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    @qs = Question.find(params[:id])
+    @qs = find_qs
     @qs.destroy
     redirect_to questions_path
   end
@@ -82,5 +83,9 @@ class QuestionsController < ApplicationController
   private
   def qs_params
     params.require(:question).permit(:title, :content)
+  end
+
+  def find_qs
+    Question.find(params[:id])
   end
 end
