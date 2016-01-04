@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 20160103212758) do
   create_table "answers", force: true do |t|
     t.integer  "author_id",                   null: false
     t.integer  "question_id",                 null: false
-    t.text     "content",                     null: false
+    t.string   "content",                     null: false
     t.boolean  "is_best",     default: false
     t.datetime "created_at"
     t.datetime "updated_at"
