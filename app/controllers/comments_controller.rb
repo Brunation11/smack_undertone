@@ -19,11 +19,19 @@ class CommentsController < ApplicationController
   end
 
   def update
-    comment = Comment.find(params[:id])
-    if valid_user(comment) && comment.update_attributes(update_param)
-      redirect_to root_path
-    else
-      render :edit
+    @comment = Comment.find(params[:id])
+    if @comment.commentable_type == "Question"
+      if valid_user(@comment) && @comment.update(content: params[:question][:content])
+        redirect_to @comment.commentable
+      else
+        render :edit
+      end
+    elsif @comment.commentable_type == "Answer"
+      if valid_user(@comment) && @comment.update(content: params[:answer][:content])
+        redirect_to @comment.commentable
+      else
+        render :edit
+      end
     end
   end
 
@@ -47,10 +55,6 @@ class CommentsController < ApplicationController
   def answer_comment
     answer = Answer.find(params[:answer_id])
     @new_comment = answer.comments.new(commentor: current_user, content: params[:comment][:content])
-  end
-
-  def update_param
-    params.require(:comment).permit(:content)
   end
 
   def valid_user(comment)
