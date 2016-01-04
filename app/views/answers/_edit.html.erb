@@ -1,0 +1,7 @@
+<%= form_tag answer_path(params[:id]), method: 'put' %>
+
+<%= label_tag :answer %>
+<%= text_area_tag :content, @answer.content %>
+
+<%= submit_tag 'Edit answer' %>
+
