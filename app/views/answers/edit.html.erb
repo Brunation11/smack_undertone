@@ -2,7 +2,15 @@
 
   <div class="col-md-7 col-md-offset-1">
     <%= render partial: 'layouts/errors', locals: { element: @answer } %>
-    <%= render 'form' %>
+    
+    <ul class="no-list-style no-padding">
+      <%= form_for [@question, @answer], url: answer_path do |t| %>
+        <li><%= t.label :answer, class: "form-field" %></li>
+        <li><%= t.text_area :content, class: "form-field content-field" %></li>
+        <li><%= submit_tag("Update Your Answer", class: "form-button") %></li>
+      <% end %>
+    </ul>
+
   </div>
 
   <div class="col-md-3">
