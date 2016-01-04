@@ -15,7 +15,7 @@ class CommentsController < ApplicationController
   end
 
   def edit
-    @update_comment = Comment.find(params[:id])
+    @comment = Comment.find(params[:id])
   end
 
   def update
@@ -53,7 +53,7 @@ class CommentsController < ApplicationController
   end
 
   def update_param
-    params.require(:update_comment).permit(:content)
+    params.require(:comment).permit(:content)
   end
 
   def valid_user(comment)

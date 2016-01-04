@@ -36,11 +36,29 @@
         <%= link_to 'Add comment', new_question_comment_path(@qs.id) %>
       </div>
       <div>
+        <h3>Answers</h3>
+        <% @answers.each do |answer| %>
+          <%= answer.content %>
+          <div>
+          by <%= answer.author.username %>
+          </div>
+          <div>
+          <%= link_to 'edit', edit_answer_path(answer.id) %>
+          <%= link_to 'delete', '/answers/' + answer.id.to_s, method: 'delete' %>
+          </div>
+        <% end %>
+      </div>
+
+      <div>
         <h3>Comments</h3>
         <% @comments.each do |comment| %>
           <%= comment.content %>
           <div>
           by <%= comment.commentor.username %>
+          </div>
+          <div>
+          <%= link_to 'edit', edit_comment_path(comment.id) %>
+          <%= link_to 'delete', '/comments/' + comment.id.to_s, method: 'delete' %>
           </div>
         <% end %>
       </div>

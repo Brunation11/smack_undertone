@@ -8,9 +8,9 @@ RSpec.describe "comments/edit.html.erb", type: :view do
     @comment = @user.questions.first.comments.create!(content: "helloooooooooooooooo", commentor: @user)
   end
   it 'shows the form to edit a comment' do
-    @update_comment = FactoryGirl.create(:comment)
+    params[:id] = @comment.id
     render
 
-    expect(rendered).to match @update_comment.content
+    expect(rendered).to match @comment.content
   end
 end
