@@ -29,12 +29,34 @@
       </div>
       <hr>
 
+      <% if logged_in? %>
+
+        <div>
+          <%= link_to 'Add Answer', new_question_answer_path(@qs.id) %>
+        </div>
+        <div>
+          <%= link_to 'Add comment', new_question_comment_path(@qs.id) %>
+        </div>
+
+      <% end %>
+
       <div>
-        <%= link_to 'Add Answer', new_question_answer_path(@qs.id) %>
+        <h3>Answers</h3>
+        <% @answers.each do |answer| %>
+          <%= markdown(answer.content) %>
+          <div>
+            by <%= answer.author.username %>
+          </div>
+          <div>
+            <% if answer.author == current_user %>
+              <%= link_to "edit", edit_answer_path(answer) %>
+              <%= link_to "delete", answer_path(answer), method: :delete %>
+            <% end %>
+          </div>
+        <% end %>
+
       </div>
-      <div>
-        <%= link_to 'Add comment', new_question_comment_path(@qs.id) %>
-      </div>
+
       <div>
         <h3>Answers</h3>
         <% @answers.each do |answer| %>
@@ -52,16 +74,19 @@
       <div>
         <h3>Comments</h3>
         <% @comments.each do |comment| %>
-          <%= comment.content %>
+          <%= markdown(comment.content) %>
           <div>
           by <%= comment.commentor.username %>
           </div>
           <div>
-          <%= link_to 'edit', edit_comment_path(comment.id) %>
-          <%= link_to 'delete', '/comments/' + comment.id.to_s, method: 'delete' %>
+            <% if comment.commentor == current_user %>
+              <%= link_to "edit", edit_comment_path(comment) %>
+              <%= link_to "delete", comment_path(comment), method: :delete %>
+            <% end %>
           </div>
         <% end %>
       </div>
+
     </main>
 
     <div class="col-md-3">

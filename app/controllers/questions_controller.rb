@@ -40,10 +40,16 @@ class QuestionsController < ApplicationController
   end
 
   def create
-    @qs = current_user.questions.build(qs_params)
-    if @qs.save
-      redirect_to questions_path
+    if logged_in?
+      @qs = current_user.questions.build(qs_params)
+      if @qs.save
+        redirect_to questions_path
+      else
+        render 'new'
+      end
     else
+      @qs = Question.new
+      @qs.errors.add(:user, "must be logged in")
       render 'new'
     end
   end
