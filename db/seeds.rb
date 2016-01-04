@@ -42,18 +42,18 @@ end
 
 questions = Question.all
 
-400.times do
+200.times do
   FactoryGirl.create(:answer, author: users.sample, question: questions.sample, content: Faker::Hipster.paragraphs(3).join)
 end
 
 answers = Answer.all
 
-800.times do
+400.times do
   FactoryGirl.create(:comment, commentor: users.sample, commentable:[questions.sample, answers.sample].sample)
 end
 
 comments = Comment.all
 
-1600.times do
+800.times do
   FactoryGirl.create(:vote, user: users.sample, votable:[questions.sample, answers.sample].sample)
 end
