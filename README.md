@@ -6,7 +6,7 @@ Successfully highlighted core functionality of original StackOverflow webpage by
 
 In depth study of the UX by improving upon it using Javascript to create a responsive experience for the end user while staying true to the original webpage
 
-www.smackundertone.herokuapp.com
+https://smackundertone.herokuapp.com/
 
 ### Current technologies:
 
