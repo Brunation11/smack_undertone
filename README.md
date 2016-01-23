@@ -14,7 +14,7 @@ https://smackundertone.herokuapp.com/
 
 * HTML5
 
-* CSS3(Vanilla CSS(no framework utilized))
+* Bootstrap
 
 * JavaScript
 
