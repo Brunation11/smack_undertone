@@ -17,9 +17,10 @@ A study of technologies, database relationships, and UX design choices of popula
 * Deployed on Heroku
 
 ## Team Members
-Jack
-Eliza
-Bruno
+
+Jack  
+Eliza  
+Bruno  
 Eunice
 
 ## Schema Design
