@@ -1,38 +1,28 @@
-# Smack Undertone
+# SmackUndertone
 
-SmackUndertone is webpage clone created as a study of technologies, database relationships, and UX design choices of the popular StackOverflow website. 
+A study of technologies, database relationships, and UX design choices of popular websites and applications.
 
-Successfully highlighted core functionality of original StackOverflow webpage by replicating ActiveRecord model relationships
+##Description
 
-In depth study of the UX by improving upon it using Javascript to create a responsive experience for the end user while staying true to the original webpage
+[SmackUndertone][1] is the first of a series of webpage clones and highlights some of the core functionality of Stack Overflow. The application is built using Ruby on Rails. Currently the application has a functioning backend, and handles basic crud on the client side including adding new posts, commenting, and up voting.
 
-https://smackundertone.herokuapp.com/
-
-### Current technologies:
+## Technologies
 
 * Rails 4
-
 * HTML5
-
 * Bootstrap
-
 * JavaScript
-
 * PostgreSQL
-
 * Full markdown and syntax highlighting support(admin)
-
 * Deployed on Heroku
 
-### Team Members
+## Team Members
 Jack
 Eliza
 Bruno
 Eunice
 
-### Trello
-
-<a href="https://trello.com/b/71Q0HYpM" title="Visit Upstage!">https://trello.com/b/71Q0HYpM</a>
-
-### Schema Design
+## Schema Design
 ![alt text](imgs/schema.png)
+
+[1]:https://smackundertone.herokuapp.com/
